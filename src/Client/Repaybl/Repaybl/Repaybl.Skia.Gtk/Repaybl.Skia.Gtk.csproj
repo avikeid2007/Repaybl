@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType Condition="'$(Configuration)'=='Release'">WinExe</OutputType>
+    <OutputType Condition="'$(Configuration)'=='Debug'">Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup Condition="exists('..\Repaybl.UWP')">
+    <EmbeddedResource Include="..\Repaybl.UWP\Package.appxmanifest" LogicalName="Package.appxmanifest" />
+    <Content Include="..\Repaybl.UWP\Assets\StoreLogo.png" Link="Assets\StoreLogo.png" />
+    <Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Include="..\Repaybl.Shared\**\*.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BasicMvvm" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+    <PackageReference Include="Uno.Material" Version="1.0.0-dev.770" />
+    <PackageReference Include="Uno.UI.Skia.Gtk" Version="3.8.0-dev.289" />
+    <PackageReference Include="Uno.UI.RemoteControl" Version="3.8.0-dev.289" Condition="'$(Configuration)'=='Debug'" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Repaybl.Swag\Repaybl.Swag.csproj" />
+  </ItemGroup>
+  <Import Project="..\Repaybl.Shared\Repaybl.Shared.projitems" Label="Shared" />
+</Project>

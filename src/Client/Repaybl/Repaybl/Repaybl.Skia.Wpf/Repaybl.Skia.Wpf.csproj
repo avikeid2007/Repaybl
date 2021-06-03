@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="BasicMvvm" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+    <PackageReference Include="Uno.Material" Version="1.0.0-dev.770" />
+    <PackageReference Include="Uno.UI.Skia.Wpf" Version="3.8.0-dev.289" />
+    <PackageReference Include="Uno.UI.RemoteControl" Version="3.8.0-dev.289" Condition="'$(Configuration)'=='Debug'" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Include="..\Repaybl.Shared\**\*.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Repaybl.Swag\Repaybl.Swag.csproj" />
+  </ItemGroup>
+  <Import Project="..\Repaybl.Shared\Repaybl.Shared.projitems" Label="Shared" />
+</Project>

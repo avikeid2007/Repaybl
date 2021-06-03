@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Tizen.NET.Sdk/1.1.6">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>tizen50</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <DefineConstants>$(DefineConstants);__TIZEN__;</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="lib\" />
+    <Folder Include="res\" />
+  </ItemGroup>
+  <ItemGroup Condition="exists('..\Repaybl.UWP')">
+    <EmbeddedResource Include="..\Repaybl.UWP\Package.appxmanifest" LogicalName="Package.appxmanifest" />
+    <Content Include="..\Repaybl.UWP\Assets\StoreLogo.png" Link="Assets\StoreLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <UpToDateCheckInput Include="..\Repaybl.Shared\**\*.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="BasicMvvm" Version="1.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
+    <PackageReference Include="SkiaSharp.Views" Version="2.80.2" />
+    <PackageReference Include="Uno.Material" Version="1.0.0-dev.770" />
+    <PackageReference Include="Uno.UI.Skia.Tizen" Version="3.8.0-dev.289" />
+    <PackageReference Include="Uno.UI.RemoteControl" Version="3.8.0-dev.289" Condition="'$(Configuration)'=='Debug'" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Repaybl.Swag\Repaybl.Swag.csproj" />
+  </ItemGroup>
+  <Import Project="..\Repaybl.Shared\Repaybl.Shared.projitems" Label="Shared" />
+</Project>
