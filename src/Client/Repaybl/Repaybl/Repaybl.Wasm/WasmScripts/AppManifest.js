@@ -1,7 +1,5 @@
 ﻿var UnoAppManifest = {
 
-    splashScreenImage: "Assets/SplashScreen.png",
-    splashScreenColor: "#fff",
+    splashScreenColor: "#5B4CF5",
     displayName: "Repaybl"
-
 }
