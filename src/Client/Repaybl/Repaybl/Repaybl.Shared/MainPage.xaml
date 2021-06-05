@@ -15,25 +15,57 @@
     mc:Ignorable="d">
 
     <Grid
-        Width="1000"
-        Height="640"
-        HorizontalAlignment="Center"
-        VerticalAlignment="Center"
+        Name="rootGrid"
+        Margin="200,80"
         CornerRadius="10">
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="2*" />
         </Grid.ColumnDefinitions>
-        <Grid>
+        <Grid x:Name="brandGrid" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Border Background="{ThemeResource MaterialPrimaryColor}" />
-            <Border Grid.Row="1" Background="{ThemeResource MaterialPrimaryVariantDarkColor}" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid
+                x:Name="logoGrid"
+                Grid.ColumnSpan="2"
+                Background="{ThemeResource MaterialPrimaryColor}">
+                <StackPanel Orientation="Horizontal">
+                    <Image
+                        x:Name="logoImage"
+                        Width="52"
+                        Margin="8,8,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Source="/Assets/logo-light.png" />
+                    <TextBlock
+                        x:Name="logoTxt"
+                        Margin="8,8,0,0"
+                        FontSize="36"
+                        Foreground="#fff"
+                        Text="Repaybl" />
+                </StackPanel>
+            </Grid>
+            <Grid
+                x:Name="misGrid"
+                Grid.Row="1"
+                Grid.ColumnSpan="2"
+                Background="{ThemeResource MaterialPrimaryVariantDarkColor}" />
         </Grid>
-        <Pivot Grid.Column="1" Background="{ThemeResource SystemAltHighColor}">
+        <Pivot
+            x:Name="loginPivot"
+            Grid.Row="1"
+            Grid.Column="1"
+            Background="{ThemeResource SystemAltHighColor}">
             <PivotItem Header="Sign Up">
                 <Grid Margin="16,8,16,0">
                     <Grid.ColumnDefinitions>
@@ -49,7 +81,7 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
-
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBox
                         Height="56"
@@ -65,7 +97,8 @@
                         </extensions:ControlExtensions.Icon>
                     </TextBox>
                     <TextBox
-                        Grid.Column="1"
+                        Grid.Row="1"
+                        Grid.ColumnSpan="2"
                         Height="56"
                         Margin="4,0,0,0"
                         VerticalAlignment="Center"
@@ -80,7 +113,7 @@
                     </TextBox>
 
                     <TextBox
-                        Grid.Row="1"
+                        Grid.Row="2"
                         Grid.ColumnSpan="2"
                         Height="56"
                         VerticalAlignment="Center"
@@ -95,7 +128,7 @@
                     </TextBox>
 
                     <PasswordBox
-                        Grid.Row="2"
+                        Grid.Row="3"
                         Grid.ColumnSpan="2"
                         Height="56"
                         VerticalAlignment="Center"
@@ -110,7 +143,7 @@
                         </extensions:ControlExtensions.Icon>
                     </PasswordBox>
                     <TextBox
-                        Grid.Row="3"
+                        Grid.Row="4"
                         Grid.ColumnSpan="2"
                         Height="56"
                         VerticalAlignment="Center"
@@ -124,7 +157,7 @@
                         </extensions:ControlExtensions.Icon>
                     </TextBox>
                     <ComboBox
-                        Grid.Row="4"
+                        Grid.Row="5"
                         Grid.ColumnSpan="2"
                         Height="56"
                         VerticalAlignment="Center"
@@ -138,7 +171,7 @@
                         </extensions:ControlExtensions.Icon>
                     </ComboBox>
                     <ComboBox
-                        Grid.Row="5"
+                        Grid.Row="6"
                         Grid.ColumnSpan="2"
                         Height="56"
                         VerticalAlignment="Center"
@@ -152,7 +185,7 @@
                         </extensions:ControlExtensions.Icon>
                     </ComboBox>
                     <TextBox
-                        Grid.Row="6"
+                        Grid.Row="7"
                         Grid.ColumnSpan="2"
                         Height="56"
                         VerticalAlignment="Center"
@@ -165,12 +198,11 @@
                         </extensions:ControlExtensions.Icon>
                     </TextBox>
                     <CheckBox
-                        Grid.Row="7"
+                        Grid.Row="8"
                         BorderBrush="#ccc"
-                        Content="I have accepted the terms and conditions"
                         Style="{StaticResource MaterialCheckBoxStyle}" />
                     <Button
-                        Grid.Row="7"
+                        Grid.Row="9"
                         Grid.Column="1"
                         HorizontalAlignment="Right"
                         Command="{x:Bind VM.RegisterCommand}"
@@ -225,18 +257,113 @@
                         Grid.Row="2"
                         HorizontalAlignment="Right"
                         Command="{x:Bind VM.LoginCommand}"
-                        Content="Sign Up"
+                        Content="Login"
                         Style="{StaticResource MaterialContainedButtonStyle}" />
                 </Grid>
             </PivotItem>
         </Pivot>
-        <!--<Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition />
-            </Grid.RowDefinitions>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="AdaptiveVisualStateGroup">
+                <VisualState x:Name="VisualStateXWide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource XWideMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="rootGrid.Margin" Value="200,80" />
 
-        </Grid>-->
+                        <!--<Setter Target="brandGrid.(Grid.Row)" Value="1" />
+                        <Setter Target="brandGrid.(Grid.ColumnSpan)" Value="0" />
+                        <Setter Target="logoGrid.(Grid.Row)" Value="0" />
+                        <Setter Target="logoGrid.(Grid.Column)" Value="0" />
+                        <Setter Target="logoGrid.(Grid.RowSpan)" Value="0" />
+                        <Setter Target="logoGrid.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="misGrid.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="misGrid.(Grid.RowSpan)" Value="0" />
+                        <Setter Target="misGrid.(Grid.Row)" Value="1" />
+                        <Setter Target="misGrid.(Grid.Column)" Value="0" />
+                        <Setter Target="loginPivot.(Grid.Row)" Value="1" />
+                        <Setter Target="loginPivot.(Grid.Column)" Value="1" />
+                        <Setter Target="loginPivot.(Grid.ColumnSpan)" Value="0" />
+                        <Setter Target="logoImage.Margin" Value="8 8 0 0" />
+                        <Setter Target="logoImage.Width" Value="52" />
+                        <Setter Target="logoTxt.FontSize" Value="36" />
+                        <Setter Target="logoTxt.Margin" Value="8 8 0 0" />-->
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualStateWide">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource WideMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="rootGrid.Margin" Value="100,40" />
+
+                        <!--<Setter Target="brandGrid.(Grid.Row)" Value="1" />
+                        <Setter Target="brandGrid.(Grid.ColumnSpan)" Value="0" />
+                        <Setter Target="logoGrid.(Grid.Row)" Value="0" />
+                        <Setter Target="logoGrid.(Grid.RowSpan)" Value="0" />
+                        <Setter Target="logoGrid.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="misGrid.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="misGrid.(Grid.RowSpan)" Value="0" />
+                        <Setter Target="misGrid.(Grid.Row)" Value="1" />
+                        <Setter Target="loginPivot.(Grid.Row)" Value="1" />
+                        <Setter Target="loginPivot.(Grid.Column)" Value="1" />
+                        <Setter Target="loginPivot.(Grid.ColumnSpan)" Value="0" />
+                        <Setter Target="logoImage.Margin" Value="8 8 0 0" />
+                        <Setter Target="logoImage.Width" Value="48" />
+                        <Setter Target="logoTxt.FontSize" Value="32" />
+                        <Setter Target="logoTxt.Margin" Value="8 8 0 0" />-->
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualStateNormal">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NormalMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="rootGrid.Margin" Value="20" />
+
+                        <!--<Setter Target="brandGrid.(Grid.Row)" Value="1" />
+                        <Setter Target="brandGrid.(Grid.ColumnSpan)" Value="0" />
+                        <Setter Target="logoGrid.(Grid.Row)" Value="0" />
+                        <Setter Target="logoGrid.(Grid.RowSpan)" Value="0" />
+                        <Setter Target="logoGrid.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="misGrid.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="misGrid.(Grid.RowSpan)" Value="0" />
+                        <Setter Target="misGrid.(Grid.Row)" Value="1" />
+                        <Setter Target="loginPivot.(Grid.Row)" Value="1" />
+                        <Setter Target="loginPivot.(Grid.Column)" Value="1" />
+                        <Setter Target="loginPivot.(Grid.ColumnSpan)" Value="0" />
+                        <Setter Target="logoImage.Margin" Value="4 4 0 0" />
+                        <Setter Target="logoImage.Width" Value="44" />
+                        <Setter Target="logoTxt.FontSize" Value="28" />
+                        <Setter Target="logoTxt.Margin" Value="4 4 0 0" />-->
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="VisualStateNarrow">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource NarrowMinWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="rootGrid.Margin" Value="0" />
+                        <Setter Target="rootGrid.CornerRadius" Value="0" />
+                        <Setter Target="brandGrid.(Grid.Row)" Value="0" />
+                        <Setter Target="brandGrid.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="logoGrid.(Grid.Row)" Value="0" />
+                        <Setter Target="misGrid.(Grid.Row)" Value="0" />
+                        <Setter Target="logoGrid.(Grid.RowSpan)" Value="2" />
+                        <Setter Target="misGrid.(Grid.RowSpan)" Value="2" />
+                        <Setter Target="logoGrid.(Grid.Column)" Value="0" />
+                        <Setter Target="misGrid.(Grid.Column)" Value="1" />
+                        <Setter Target="loginPivot.(Grid.Row)" Value="1" />
+                        <Setter Target="loginPivot.(Grid.Column)" Value="0" />
+                        <Setter Target="loginPivot.(Grid.ColumnSpan)" Value="2" />
+                        <Setter Target="logoImage.Margin" Value="4 8 0 0" />
+                        <Setter Target="logoImage.Width" Value="40" />
+                        <Setter Target="logoTxt.FontSize" Value="24" />
+                        <Setter Target="logoTxt.Margin" Value="4 8 0 0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 
 </Page>
