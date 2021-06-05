@@ -1,11 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace RepayblApi
 {
@@ -18,6 +13,11 @@ namespace RepayblApi
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration(builder =>
+            {
+                builder.AddUserSecrets<Startup>(false);
+                builder.AddJsonFile("connectionstrings.json", optional: true, reloadOnChange: true);
+            })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

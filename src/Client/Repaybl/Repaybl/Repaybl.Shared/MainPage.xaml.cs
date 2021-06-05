@@ -22,6 +22,8 @@ namespace Repaybl
             // Request an instance of the ViewModel and set it to the DataContext
             VM = (MainViewModel)ActivatorUtilities.GetServiceOrCreateInstance(container, typeof(MainViewModel));
             DataContext = VM;
+            VM._contentFrame = this.Frame;
         }
+
     }
 }

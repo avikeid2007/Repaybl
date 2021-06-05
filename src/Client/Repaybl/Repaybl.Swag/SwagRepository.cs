@@ -64,7 +64,7 @@ namespace Repaybl.Swag
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Property");
     
-            var client_ = new System.Net.Http.HttpClient();
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             var disposeClient_ = true;
             try
             {
@@ -133,7 +133,7 @@ namespace Repaybl.Swag
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Property");
     
-            var client_ = new System.Net.Http.HttpClient();
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             var disposeClient_ = true;
             try
             {
@@ -204,7 +204,7 @@ namespace Repaybl.Swag
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Property/{id}");
             urlBuilder_.Replace("{id}", System.Uri.EscapeDataString(ConvertToString(id, System.Globalization.CultureInfo.InvariantCulture)));
     
-            var client_ = new System.Net.Http.HttpClient();
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             var disposeClient_ = true;
             try
             {
@@ -368,7 +368,7 @@ namespace Repaybl.Swag
     {
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<LoginResult> LoginAsync(LoginRequest request, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<string> LoginAsync(LoginRequest request, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -407,7 +407,7 @@ namespace Repaybl.Swag
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<LoginResult> LoginAsync(LoginRequest request, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<string> LoginAsync(LoginRequest request, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (request == null)
                 throw new System.ArgumentNullException("request");
@@ -415,7 +415,7 @@ namespace Repaybl.Swag
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/User/Login");
     
-            var client_ = new System.Net.Http.HttpClient();
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             var disposeClient_ = true;
             try
             {
@@ -450,7 +450,7 @@ namespace Repaybl.Swag
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<LoginResult>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<string>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -487,7 +487,7 @@ namespace Repaybl.Swag
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/User/Register");
     
-            var client_ = new System.Net.Http.HttpClient();
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             var disposeClient_ = true;
             try
             {
@@ -556,7 +556,7 @@ namespace Repaybl.Swag
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/User/CurrentUser");
     
-            var client_ = new System.Net.Http.HttpClient();
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             var disposeClient_ = true;
             try
             {
@@ -756,7 +756,7 @@ namespace Repaybl.Swag
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/WeatherForecast");
     
-            var client_ = new System.Net.Http.HttpClient();
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             var disposeClient_ = true;
             try
             {
@@ -1179,6 +1179,52 @@ namespace Repaybl.Swag
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class LoginRequest : System.ComponentModel.INotifyPropertyChanged
+    {
+        private string _userName;
+        private string _password;
+    
+        [System.Text.Json.Serialization.JsonPropertyName("userName")]
+        public string UserName
+        {
+            get { return _userName; }
+            set
+            {
+                if (_userName != value)
+                {
+                    _userName = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("password")]
+        public string Password
+        {
+            get { return _password; }
+            set
+            {
+                if (_password != value)
+                {
+                    _password = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+    
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) 
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class LoginResult : System.ComponentModel.INotifyPropertyChanged
     {
         private string _token;
@@ -1208,52 +1254,6 @@ namespace Repaybl.Swag
                 if (_expiry != value)
                 {
                     _expiry = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-    
-    
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null) 
-                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-        }
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class LoginRequest : System.ComponentModel.INotifyPropertyChanged
-    {
-        private string _userName;
-        private string _password;
-    
-        [System.Text.Json.Serialization.JsonPropertyName("userName")]
-        public string UserName
-        {
-            get { return _userName; }
-            set
-            {
-                if (_userName != value)
-                {
-                    _userName = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-    
-        [System.Text.Json.Serialization.JsonPropertyName("password")]
-        public string Password
-        {
-            get { return _password; }
-            set
-            {
-                if (_password != value)
-                {
-                    _password = value;
                     RaisePropertyChanged();
                 }
             }

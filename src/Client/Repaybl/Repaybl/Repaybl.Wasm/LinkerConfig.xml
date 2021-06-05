@@ -2,9 +2,11 @@
   <assembly fullname="Repaybl.Wasm" />
   <assembly fullname="Uno.UI" />
   <assembly fullname="Microsoft.Extensions.Options" />
-
+  <assembly fullname="Repaybl.Swag" />
   <assembly fullname="System.Core">
+
 	<!-- This is required by JSon.NET and any expression.Compile caller -->
 	<type fullname="System.Linq.Expressions*" />
+    <type fullname="System.Text.Json*" />
   </assembly>
 </linker>

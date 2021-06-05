@@ -42,17 +42,17 @@ namespace RepayblApi.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
             return tokenHandler.WriteToken(token);
         }
-
+        [AllowAnonymous]
         [HttpPost("Login")]
-        public async Task<ActionResult<LoginResult>> LoginAsync(LoginRequest request)
+        public async Task<string> LoginAsync(LoginRequest request)
         {
             var user = await Context.Users.SingleOrDefaultAsync(x => x.Email.Equals(request.UserName) && x.Password.Equals(request.Password));
             if (user is not null)
             {
                 var expiry = DateTime.Now.AddDays(30);
-                return Ok(new LoginResult { Token = GenerateJWT(user, expiry), Expiry = expiry });
+                return GenerateJWT(user, expiry);
             }
-            return NotFound();
+            return null;
         }
         [AllowAnonymous]
         [HttpPost("Register")]

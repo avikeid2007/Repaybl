@@ -27,7 +27,14 @@ namespace RepayblApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllHeaders",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    );
+            });
             services.AddControllers();
             services.AddDbContext<RepayblContext>(options => options.UseSqlServer(Configuration.GetConnectionString("database")));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
@@ -55,6 +62,7 @@ namespace RepayblApi
                 app.UseDeveloperExceptionPage();
 
             }
+            app.UseCors("AllowAllHeaders");
             app.UseOpenApi();
             app.UseSwaggerUi3();
             app.UseHttpsRedirection();

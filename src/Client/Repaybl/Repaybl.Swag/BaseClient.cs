@@ -7,24 +7,36 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Threading;
+using System;
 
 namespace Repaybl.Swag
 {
     public class BaseClient
     {
-        public string BaseUrl { get; set; } = "http://localhost:46606/";
-        public static string BearerToken { get; private set; }
+        public string BaseUrl { get; set; } = "http://repaybl.avnishkumar.co.in/";
+        private static string bearerToken { get; set; }
         public static void SetBearerToken(string token)
         {
-            BearerToken = token;
+            bearerToken = token;
         }
         // Called by implementing swagger client classes
         protected Task<HttpRequestMessage> CreateHttpRequestMessageAsync(CancellationToken cancellationToken)
         {
             var msg = new HttpRequestMessage();
-            if (!string.IsNullOrEmpty(BearerToken))
-                msg.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", BearerToken);
+            if (!string.IsNullOrEmpty(bearerToken))
+                msg.Headers.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", bearerToken);
             return Task.FromResult(msg);
+        }
+        protected async Task<HttpClient> CreateHttpClientAsync(CancellationToken cancellationToken = default)
+        {
+//#if __WASM__
+//    var innerHandler = new Uno.UI.Wasm.WasmHttpHandler();
+//#else
+//            var innerHandler = new HttpClientHandler();
+//#endif
+            var _client = new HttpClient();
+            _client.BaseAddress = new Uri(BaseUrl);
+            return _client;
         }
     }
 }
