@@ -12,9 +12,6 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="Assets\SplashScreen.png" />
-  </ItemGroup>
-  <ItemGroup>
     <UpToDateCheckInput Include="..\Repaybl.Shared\**\*.xaml" />
   </ItemGroup>
   <ItemGroup>
@@ -49,6 +46,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Repaybl.Swag\Repaybl.Swag.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets\" />
   </ItemGroup>
   <Import Project="..\Repaybl.Shared\Repaybl.Shared.projitems" Label="Shared" Condition="Exists('..\Repaybl.Shared\Repaybl.Shared.projitems')" />
 </Project>
