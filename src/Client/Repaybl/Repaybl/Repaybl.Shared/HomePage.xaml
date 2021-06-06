@@ -15,7 +15,68 @@
             <Interactions:InvokeCommandAction Command="{Binding LoadCommand}" CommandParameter="{Binding ElementName=homePage}" />
         </Interactions:EventTriggerBehavior>
     </Interactivity:Interaction.Behaviors>-->
-    <Grid >
-        <TextBlock Text=" thiss is home page>"></TextBlock>
+    <Grid>
+        <NavigationView
+            x:Name="NavView"
+            Margin="0,12,0,0"
+            Background="Transparent"
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
+            IsTabStop="False"
+            PaneDisplayMode="Auto"
+            PaneTitle="Repaybl"
+            Style="{StaticResource MaterialNavigationViewStyle}">
+            <Interactivity:Interaction.Behaviors>
+                <Interactions:EventTriggerBehavior EventName="ItemInvoked">
+                    <Interactions:InvokeCommandAction Command="{Binding ItemInvokedCommand}" />
+                </Interactions:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
+            <NavigationView.PaneHeader>
+                <StackPanel Orientation="Horizontal">
+                    <Image
+                        Width="30"
+                        Height="30"
+                        Margin="16,50,16,30"
+                        HorizontalAlignment="Left"
+                        Source="ms-appx:///Assets/logo.png"
+                        Stretch="Uniform" />
+                    <TextBlock
+                        Margin="16,0,0,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Text="{Binding PaneTitle, ElementName=NavView}" />
+                </StackPanel>
+            </NavigationView.PaneHeader>
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Properties" Tag="PR">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="ms-appx:///Assets/Logo.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+                <NavigationViewItem Content="Tenants" Tag="TN">
+                    <NavigationViewItem.Icon>
+                        <BitmapIcon UriSource="ms-appx:///Assets/Logo.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <!--  NavigationView Items  -->
+            <Frame x:Name="ContentFrame">
+                <Interactivity:Interaction.Behaviors>
+                    <Interactions:EventTriggerBehavior EventName="Loaded">
+                        <Interactions:InvokeCommandAction Command="{Binding LoadCommand}" CommandParameter="{Binding ElementName=ContentFrame}" />
+                    </Interactions:EventTriggerBehavior>
+                </Interactivity:Interaction.Behaviors>
+                <Frame.ContentTransitions>
+                    <TransitionCollection>
+                        <NavigationThemeTransition>
+                            <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                <EntranceNavigationTransitionInfo />
+                            </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                        </NavigationThemeTransition>
+                    </TransitionCollection>
+                </Frame.ContentTransitions>
+            </Frame>
+        </NavigationView>
     </Grid>
 </Page>
