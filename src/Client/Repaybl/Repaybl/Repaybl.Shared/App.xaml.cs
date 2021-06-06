@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Linq;
+using System.Security.Claims;
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using Repaybl.Constants;
 using Repaybl.Helpers;
 using Repaybl.Swag;
 
@@ -132,6 +135,10 @@ namespace Repaybl
                 {
                     return true;
                 }
+                var claims = ServiceExtensions.ParseClaimsFromJwt(res);
+                Globals.CurrentUserId = Guid.Parse(claims.First(x => x.Type == ClaimTypes.NameIdentifier)?.Value);
+                Globals.CurrentUserEmail = claims.First(x => x.Type == ClaimTypes.Email)?.Value;
+                Globals.CurrentUserName = claims.First(x => x.Type == ClaimTypes.Name)?.Value;
                 BaseClient.SetBearerToken(res);
                 return false;
             }

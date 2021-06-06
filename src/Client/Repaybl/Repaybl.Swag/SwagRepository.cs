@@ -916,7 +916,7 @@ namespace Repaybl.Swag
     }
 
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Property : AuditorBase
+    public partial class Property : System.ComponentModel.INotifyPropertyChanged
     {
         private System.Guid _id;
         private string _name;
@@ -961,7 +961,6 @@ namespace Repaybl.Swag
         }
     
         [System.Text.Json.Serialization.JsonPropertyName("address")]
-        [System.ComponentModel.DataAnnotations.Required]
         public string Address
         {
             get { return _address; }
@@ -976,7 +975,6 @@ namespace Repaybl.Swag
         }
     
         [System.Text.Json.Serialization.JsonPropertyName("city")]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [System.ComponentModel.DataAnnotations.StringLength(50)]
         public string City
         {
@@ -992,7 +990,6 @@ namespace Repaybl.Swag
         }
     
         [System.Text.Json.Serialization.JsonPropertyName("state")]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [System.ComponentModel.DataAnnotations.StringLength(50)]
         public string State
         {
@@ -1008,7 +1005,6 @@ namespace Repaybl.Swag
         }
     
         [System.Text.Json.Serialization.JsonPropertyName("country")]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [System.ComponentModel.DataAnnotations.StringLength(50)]
         public string Country
         {
@@ -1052,7 +1048,6 @@ namespace Repaybl.Swag
         }
     
         [System.Text.Json.Serialization.JsonPropertyName("remarks")]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [System.ComponentModel.DataAnnotations.StringLength(50)]
         public string Remarks
         {
@@ -1077,90 +1072,6 @@ namespace Repaybl.Swag
                 if (_userId != value)
                 {
                     _userId = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-    
-    
-    
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v12.0.0.0)")]
-    public abstract partial class AuditorBase : System.ComponentModel.INotifyPropertyChanged
-    {
-        private System.DateTimeOffset _created;
-        private string _createdBy;
-        private System.DateTimeOffset? _modified;
-        private string _modifiedBy;
-        private bool _isDeleted;
-    
-        [System.Text.Json.Serialization.JsonPropertyName("created")]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public System.DateTimeOffset Created
-        {
-            get { return _created; }
-            set
-            {
-                if (_created != value)
-                {
-                    _created = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-    
-        [System.Text.Json.Serialization.JsonPropertyName("createdBy")]
-        public string CreatedBy
-        {
-            get { return _createdBy; }
-            set
-            {
-                if (_createdBy != value)
-                {
-                    _createdBy = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-    
-        [System.Text.Json.Serialization.JsonPropertyName("modified")]
-        public System.DateTimeOffset? Modified
-        {
-            get { return _modified; }
-            set
-            {
-                if (_modified != value)
-                {
-                    _modified = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-    
-        [System.Text.Json.Serialization.JsonPropertyName("modifiedBy")]
-        public string ModifiedBy
-        {
-            get { return _modifiedBy; }
-            set
-            {
-                if (_modifiedBy != value)
-                {
-                    _modifiedBy = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
-    
-        [System.Text.Json.Serialization.JsonPropertyName("isDeleted")]
-        public bool IsDeleted
-        {
-            get { return _isDeleted; }
-            set
-            {
-                if (_isDeleted != value)
-                {
-                    _isDeleted = value;
                     RaisePropertyChanged();
                 }
             }

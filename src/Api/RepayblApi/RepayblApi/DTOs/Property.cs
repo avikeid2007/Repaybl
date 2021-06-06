@@ -1,22 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-#nullable disable
-
-namespace RepayblApi.Models
+namespace RepayblApi.DTOs
 {
-    [Index(nameof(UserId), Name = "fkIdx_151")]
-    public partial class Property : AuditorBase
+    public partial class Property
     {
-        public Property()
-        {
-            Rooms = new HashSet<Room>();
-        }
-
         [Key]
         public Guid Id { get; set; }
         [Required]
@@ -40,10 +30,5 @@ namespace RepayblApi.Models
         public string Remarks { get; set; }
         public Guid UserId { get; set; }
 
-        [ForeignKey(nameof(UserId))]
-        [InverseProperty("Properties")]
-        public virtual User User { get; set; }
-        [InverseProperty(nameof(Room.Property))]
-        public virtual ICollection<Room> Rooms { get; set; }
     }
 }

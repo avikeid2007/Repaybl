@@ -7,15 +7,72 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:Repaybl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:token="using:Repaybl.Constants"
     x:Name="homePage"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
-    <!--<Interactivity:Interaction.Behaviors>
-        <Interactions:EventTriggerBehavior EventName="Loaded">
-            <Interactions:InvokeCommandAction Command="{Binding LoadCommand}" CommandParameter="{Binding ElementName=homePage}" />
-        </Interactions:EventTriggerBehavior>
-    </Interactivity:Interaction.Behaviors>-->
-    <Grid >
-        <TextBlock Text=" thiss is home page>"></TextBlock>
-    </Grid>
+
+    <NavigationView
+        x:Name="NavView"
+        Background="Transparent"
+        IsBackButtonVisible="Collapsed"
+        IsSettingsVisible="True"
+        IsTabStop="False"
+        PaneDisplayMode="Auto"
+        PaneTitle="Repaybl"
+        Style="{StaticResource MaterialNavigationViewStyle}">
+        <Interactivity:Interaction.Behaviors>
+            <Interactions:EventTriggerBehavior EventName="ItemInvoked">
+                <Interactions:InvokeCommandAction Command="{Binding ItemInvokedCommand}" />
+            </Interactions:EventTriggerBehavior>
+        </Interactivity:Interaction.Behaviors>
+        <NavigationView.PaneHeader>
+            <StackPanel Orientation="Horizontal">
+                <Image
+                    Width="30"
+                    Height="30"
+                    Margin="16,50,16,30"
+                    HorizontalAlignment="Left"
+                    Source="ms-appx:///Assets/logo.png"
+                    Stretch="Uniform" />
+                <TextBlock
+                    Margin="8,20,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource MaterialHeadline6}"
+                    Text="{Binding PaneTitle, ElementName=NavView}" />
+            </StackPanel>
+        </NavigationView.PaneHeader>
+        <NavigationView.MenuItems>
+            <NavigationViewItem Content="{x:Bind token:PageTokens.Properties}" Tag="PR">
+                <NavigationViewItem.Icon>
+                    <BitmapIcon UriSource="ms-appx:///Assets/Logo.png" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+            <NavigationViewItem Content="{x:Bind token:PageTokens.Tenants}" Tag="TN">
+                <NavigationViewItem.Icon>
+                    <BitmapIcon UriSource="ms-appx:///Assets/Logo.png" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+
+        <!--  NavigationView Items  -->
+        <Frame x:Name="ContentFrame">
+            <Interactivity:Interaction.Behaviors>
+                <Interactions:EventTriggerBehavior EventName="Loaded">
+                    <Interactions:InvokeCommandAction Command="{Binding LoadCommand}" CommandParameter="{Binding ElementName=ContentFrame}" />
+                </Interactions:EventTriggerBehavior>
+            </Interactivity:Interaction.Behaviors>
+            <Frame.ContentTransitions>
+                <TransitionCollection>
+                    <NavigationThemeTransition>
+                        <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                            <EntranceNavigationTransitionInfo />
+                        </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                    </NavigationThemeTransition>
+                </TransitionCollection>
+            </Frame.ContentTransitions>
+        </Frame>
+    </NavigationView>
+
 </Page>
