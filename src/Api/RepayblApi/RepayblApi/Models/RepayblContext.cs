@@ -133,6 +133,7 @@ namespace RepayblApi.Models
 
                 entity.Property(e => e.State).IsUnicode(false);
                 entity.HasIndex(x => x.Email).IsUnique();
+                entity.HasIndex(x => x.Phone).IsUnique();
 
             });
 

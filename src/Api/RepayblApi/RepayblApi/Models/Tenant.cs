@@ -25,7 +25,7 @@ namespace RepayblApi.Models
         public string FirstName { get; set; }
         [StringLength(50)]
         public string LastName { get; set; }
-        [Required]
+
         [StringLength(10)]
         public string Gender { get; set; }
         [Column(TypeName = "datetime")]
@@ -39,6 +39,7 @@ namespace RepayblApi.Models
         public string Country { get; set; }
         public int? Zip { get; set; }
         public int? FamilyMamberCount { get; set; }
+        [Required]
         [StringLength(15)]
         public string Phone { get; set; }
         [StringLength(255)]

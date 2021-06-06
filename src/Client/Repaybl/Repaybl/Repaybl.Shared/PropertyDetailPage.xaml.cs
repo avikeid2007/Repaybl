@@ -11,14 +11,14 @@ namespace Repaybl
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class PropertiesPage : Page
+    public sealed partial class PropertyDetailPage : Page
     {
-        public PropertiesPage()
+        public PropertyDetailPage()
         {
             this.InitializeComponent();
             var container = ((App)App.Current).Container;
             // Request an instance of the ViewModel and set it to the DataContext
-            VM = (PropertiesViewModel)ActivatorUtilities.GetServiceOrCreateInstance(container, typeof(PropertiesViewModel));
+            VM = (PropertyDetailViewModel)ActivatorUtilities.GetServiceOrCreateInstance(container, typeof(PropertyDetailViewModel));
             DataContext = VM;
             this.Loaded += PropertiesPage_Loaded;
         }
@@ -28,6 +28,6 @@ namespace Repaybl
             VM._contentFrame = this.Frame;
         }
 
-        internal PropertiesViewModel VM { get; }
+        internal PropertyDetailViewModel VM { get; }
     }
 }
