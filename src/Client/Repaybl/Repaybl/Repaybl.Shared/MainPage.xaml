@@ -82,15 +82,15 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBox
+                        Grid.ColumnSpan="2"
                         Height="56"
-                        Margin="0,0,4,0"
                         VerticalAlignment="Center"
-                        BorderBrush="#ccc"
-                        CornerRadius="4"
+                        Background="Transparent"
                         PlaceholderText="First Name"
-                        Style="{StaticResource MaterialOutlinedTextBoxStyle}"
+                        Style="{StaticResource MaterialFilledTextBoxStyle}"
                         Text="{x:Bind VM.RegisterUser.FirstName, Mode=TwoWay}">
                         <extensions:ControlExtensions.Icon>
                             <SymbolIcon Symbol="Account" />
@@ -100,12 +100,10 @@
                         Grid.Row="1"
                         Grid.ColumnSpan="2"
                         Height="56"
-                        Margin="4,0,0,0"
                         VerticalAlignment="Center"
-                        BorderBrush="#ccc"
-                        CornerRadius="4"
+                        Background="Transparent"
                         PlaceholderText="Last Name"
-                        Style="{StaticResource MaterialOutlinedTextBoxStyle}"
+                        Style="{StaticResource MaterialFilledTextBoxStyle}"
                         Text="{x:Bind VM.RegisterUser.LastName, Mode=TwoWay}">
                         <extensions:ControlExtensions.Icon>
                             <SymbolIcon Symbol="Account" />
@@ -117,10 +115,9 @@
                         Grid.ColumnSpan="2"
                         Height="56"
                         VerticalAlignment="Center"
-                        BorderBrush="#ccc"
-                        CornerRadius="4"
+                        Background="Transparent"
                         PlaceholderText="Email"
-                        Style="{StaticResource MaterialOutlinedTextBoxStyle}"
+                        Style="{StaticResource MaterialFilledTextBoxStyle}"
                         Text="{x:Bind VM.RegisterUser.Email, Mode=TwoWay}">
                         <extensions:ControlExtensions.Icon>
                             <SymbolIcon Symbol="Mail" />
@@ -132,12 +129,11 @@
                         Grid.ColumnSpan="2"
                         Height="56"
                         VerticalAlignment="Center"
-                        BorderBrush="#ccc"
-                        CornerRadius="4"
+                        Background="Transparent"
                         Header="Password"
                         Password="{x:Bind VM.RegisterUser.Password, Mode=TwoWay}"
                         PlaceholderText="Password"
-                        Style="{StaticResource MaterialOutlinedPasswordBoxStyle}">
+                        Style="{StaticResource MaterialFilledPasswordBoxStyle}">
                         <extensions:ControlExtensions.Icon>
                             <SymbolIcon Symbol="Important" />
                         </extensions:ControlExtensions.Icon>
@@ -147,25 +143,23 @@
                         Grid.ColumnSpan="2"
                         Height="56"
                         VerticalAlignment="Center"
-                        BorderBrush="#ccc"
-                        CornerRadius="4"
+                        Background="Transparent"
                         PlaceholderText="Mobile"
-                        Style="{StaticResource MaterialOutlinedTextBoxStyle}"
+                        Style="{StaticResource MaterialFilledTextBoxStyle}"
                         Text="{x:Bind VM.RegisterUser.Phone, Mode=TwoWay}">
                         <extensions:ControlExtensions.Icon>
                             <SymbolIcon Symbol="Phone" />
                         </extensions:ControlExtensions.Icon>
                     </TextBox>
-                    <ComboBox
+                    <!--<ComboBox
                         Grid.Row="5"
                         Grid.ColumnSpan="2"
                         Height="56"
                         VerticalAlignment="Center"
-                        BorderBrush="#ccc"
-                        CornerRadius="4"
+                        BorderThickness="1"
                         ItemsSource="abcdefg"
                         PlaceholderText="Country"
-                        Style="{StaticResource MaterialComboBoxStyle}">
+                        Style="{StaticResource MaterialFilledComboBoxStyle}">
                         <extensions:ControlExtensions.Icon>
                             <SymbolIcon Symbol="Map" />
                         </extensions:ControlExtensions.Icon>
@@ -183,8 +177,8 @@
                         <extensions:ControlExtensions.Icon>
                             <SymbolIcon Symbol="MapPin" />
                         </extensions:ControlExtensions.Icon>
-                    </ComboBox>
-                    <TextBox
+                    </ComboBox>-->
+                    <!--<TextBox
                         Grid.Row="7"
                         Grid.ColumnSpan="2"
                         Height="56"
@@ -196,13 +190,13 @@
                         <extensions:ControlExtensions.Icon>
                             <SymbolIcon Symbol="MapDrive" />
                         </extensions:ControlExtensions.Icon>
-                    </TextBox>
+                    </TextBox>-->
                     <CheckBox
-                        Grid.Row="8"
+                        Grid.Row="5"
                         BorderBrush="#ccc"
                         Style="{StaticResource MaterialCheckBoxStyle}" />
                     <Button
-                        Grid.Row="9"
+                        Grid.Row="5"
                         Grid.Column="1"
                         HorizontalAlignment="Right"
                         Command="{x:Bind VM.RegisterCommand}"
@@ -221,33 +215,33 @@
                         <RowDefinition />
                         <RowDefinition />
                         <RowDefinition />
-
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <TextBox
                         Grid.Row="0"
                         Height="56"
                         VerticalAlignment="Center"
-                        BorderBrush="#ccc"
-                        CornerRadius="4"
+                        Background="Transparent"
                         PlaceholderText="Email"
-                        Style="{StaticResource MaterialOutlinedTextBoxStyle}"
+                        Style="{StaticResource MaterialFilledTextBoxStyle}"
                         Text="{x:Bind VM.LoginUser.UserName, Mode=TwoWay}">
                         <extensions:ControlExtensions.Icon>
                             <SymbolIcon Symbol="Mail" />
                         </extensions:ControlExtensions.Icon>
                     </TextBox>
 
+
                     <PasswordBox
                         Grid.Row="1"
                         Grid.ColumnSpan="2"
                         Height="56"
                         VerticalAlignment="Center"
-                        BorderBrush="#ccc"
-                        CornerRadius="4"
+                        Background="Transparent"
                         Header="Password"
                         Password="{x:Bind VM.LoginUser.Password, Mode=TwoWay}"
                         PlaceholderText="Password"
-                        Style="{StaticResource MaterialOutlinedPasswordBoxStyle}">
+                        Style="{StaticResource MaterialFilledPasswordBoxStyle}">
                         <extensions:ControlExtensions.Icon>
                             <SymbolIcon Symbol="Important" />
                         </extensions:ControlExtensions.Icon>
