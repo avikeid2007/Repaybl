@@ -6,33 +6,65 @@
     xmlns:extensions="using:Uno.Material.Extensions"
     xmlns:local="using:Repaybl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Repaybl.Swag"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid>
+        <Grid Margin="16,16">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Style="{StaticResource MaterialHeadline4}" Text="My Properties" />
+            <TextBlock Style="{StaticResource MaterialHeadline4}" Text="Properties" />
             <Button
                 Grid.Column="1"
                 Command="{x:Bind VM.AddPropertyCommand}"
-                Style="{StaticResource MaterialFabStyle}">
+                Style="{StaticResource MaterialContainedButtonStyle}">
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                    <SymbolIcon Symbol="Add" />
+                    <TextBlock
+                        Margin="16,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="Add Property" />
+                </StackPanel>
+            </Button>
+        </Grid>
+        <Grid Grid.Row="1" Margin="16,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox
+                Height="52"
+                Background="Transparent"
+                PlaceholderText="Search"
+                Style="{StaticResource MaterialFilledTextBoxStyle}">
+                <extensions:ControlExtensions.Icon>
+                    <SymbolIcon Symbol="Find" />
+                </extensions:ControlExtensions.Icon>
+            </TextBox>
+            <Button
+                Grid.Column="1"
+                Command="{x:Bind VM.AddPropertyCommand}"
+                Content="Sort"
+                Style="{StaticResource MaterialOutlinedButtonStyle}">
                 <extensions:ControlExtensions.Icon>
                     <SymbolIcon Symbol="Add" />
                 </extensions:ControlExtensions.Icon>
             </Button>
         </Grid>
         <GridView
-            Grid.Row="1"
-            HorizontalAlignment="Center"
-            ItemsSource="123456781234567812345678">
+            Grid.Row="2"
+            Margin="16,16"
+            HorizontalAlignment="Stretch"
+            ItemsSource="{x:Bind VM.AllProperty, Mode=OneWay}">
             <GridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">
                     <Setter Property="VerticalContentAlignment" Value="Stretch" />
@@ -40,23 +72,121 @@
                 </Style>
             </GridView.ItemContainerStyle>
             <GridView.ItemTemplate>
-                <DataTemplate>
-                    <!--  Background  -->
+                <DataTemplate x:DataType="models:Property">
                     <Grid
-                        Width="120"
-                        Height="120"
-                        Margin="5"
-                        Background="Red"
-                        CornerRadius="5">
-                        <!--  Some Text  -->
+                        Width="480"
+                        Height="140"
+                        Padding="4,16"
+                        HorizontalAlignment="Left"
+                        BorderBrush="#ccc"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            Grid.RowSpan="4"
+                            Width="100"
+                            HorizontalAlignment="Left"
+                            Source="ms-appx:///Assets/NoBuilding.png" />
                         <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Foreground="White"
-                            Style="{StaticResource MaterialHeadline4}"
-                            Text="{Binding}" />
+                            Grid.Column="1"
+                            Margin="4,4,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="{x:Bind Name}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="4,4,0,0"
+                            Foreground="#666"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            <Run Text="Rooms:" />
+                            <Run Text="{x:Bind Rooms.Count}" />
+                        </TextBlock>
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="4,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="Address :" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="4,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            <Run Text="{x:Bind Address}" />
+                            <Run Text="{x:Bind City}" />
+                            <Run Text="{x:Bind State}" />
+                            <Run Text="{x:Bind Country}" />
+                            <Run Text="{x:Bind Zip}" />
+                        </TextBlock>
                     </Grid>
                 </DataTemplate>
+                <!--<DataTemplate x:DataType="models:Property">
+                    <Grid
+                        Width="260"
+                        Height="160"
+                        Padding="16,16"
+                        HorizontalAlignment="Left"
+                        BorderBrush="#ccc"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <PersonPicture
+                            Grid.RowSpan="2"
+                            Width="52"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            DisplayName="{x:Bind Name}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="16,4,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="{x:Bind Name}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="16,4,0,0"
+                            Foreground="#666"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            <Run Text="Rooms:" />
+                            <Run Text="{x:Bind Rooms.Count}" />
+                        </TextBlock>
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Margin="0,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="Address :" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Margin="0,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            <Run Text="{x:Bind Address}" />
+                            <Run Text="{x:Bind City}" />
+                            <Run Text="{x:Bind State}" />
+                            <Run Text="{x:Bind Country}" />
+                            <Run Text="{x:Bind Zip}" />
+                        </TextBlock>
+                    </Grid>
+                </DataTemplate>-->
             </GridView.ItemTemplate>
         </GridView>
     </Grid>

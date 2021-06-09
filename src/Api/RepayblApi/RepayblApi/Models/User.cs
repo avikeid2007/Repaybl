@@ -43,5 +43,7 @@ namespace RepayblApi.Models
 
         [InverseProperty(nameof(Property.User))]
         public virtual ICollection<Property> Properties { get; set; }
+        [InverseProperty(nameof(Property.User))]
+        public virtual ICollection<Tenant> Tenants { get; set; }
     }
 }

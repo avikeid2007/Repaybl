@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
@@ -29,6 +30,6 @@ namespace RepayblApi.DTOs
         [StringLength(50)]
         public string Remarks { get; set; }
         public Guid UserId { get; set; }
-
+        public ICollection<Room> Rooms { get; set; }
     }
 }

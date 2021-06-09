@@ -22,8 +22,13 @@ namespace Repaybl
             // Request an instance of the ViewModel and set it to the DataContext
             VM = (MainViewModel)ActivatorUtilities.GetServiceOrCreateInstance(container, typeof(MainViewModel));
             DataContext = VM;
+            this.Loaded += PropertiesPage_Loaded;
+        }
+        private void PropertiesPage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
             VM._contentFrame = this.Frame;
         }
+
 
     }
 }

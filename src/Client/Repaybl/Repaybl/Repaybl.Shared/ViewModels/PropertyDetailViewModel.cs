@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 using BasicMvvm;
@@ -19,7 +20,7 @@ namespace Repaybl.ViewModels
         public PropertyDetailViewModel(IPropertyClient propertyClient)
         {
             _propertyClient = propertyClient;
-            SelectedProperty = new Property() { UserId = Globals.CurrentUserId };
+            SelectedProperty = new Property() { UserId = Globals.CurrentUserId, Id = Guid.NewGuid() };
 
         }
         private async Task OnSavePropertyCommandAsync()

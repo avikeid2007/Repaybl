@@ -44,18 +44,30 @@
             </StackPanel>
         </NavigationView.PaneHeader>
         <NavigationView.MenuItems>
+            <NavigationViewItem Content="{x:Bind token:PageTokens.Dashboard}" Tag="PR">
+                <NavigationViewItem.Icon>
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE80F;" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
             <NavigationViewItem Content="{x:Bind token:PageTokens.Properties}" Tag="PR">
                 <NavigationViewItem.Icon>
-                    <BitmapIcon UriSource="ms-appx:///Assets/Logo.png" />
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xEC07;" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
             <NavigationViewItem Content="{x:Bind token:PageTokens.Tenants}" Tag="TN">
                 <NavigationViewItem.Icon>
-                    <BitmapIcon UriSource="ms-appx:///Assets/Logo.png" />
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE716;" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-        </NavigationView.MenuItems>
 
+        </NavigationView.MenuItems>
+        <NavigationView.PaneFooter>
+            <NavigationViewItem Content="{x:Bind token:PageTokens.Profile}" Tag="TN">
+                <NavigationViewItem.Icon>
+                    <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/NoPicture.png" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.PaneFooter>
         <!--  NavigationView Items  -->
         <Frame x:Name="ContentFrame">
             <Interactivity:Interaction.Behaviors>

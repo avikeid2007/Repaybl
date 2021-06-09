@@ -152,7 +152,7 @@
                 </extensions:ControlExtensions.Icon>
             </Button>-->
         </Grid>
-        <GridView
+        <!--<GridView
             Grid.Row="3"
             HorizontalAlignment="Center"
             ItemsSource="123456781234567812345678">
@@ -164,14 +164,14 @@
             </GridView.ItemContainerStyle>
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <!--  Background  -->
+                    --><!--  Background  --><!--
                     <Grid
                         Width="120"
                         Height="120"
                         Margin="5"
                         Background="Red"
                         CornerRadius="5">
-                        <!--  Some Text  -->
+                        --><!--  Some Text  --><!--
                         <TextBlock
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
@@ -181,6 +181,6 @@
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
-        </GridView>
+        </GridView>-->
     </Grid>
 </Page>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 using RepayblApi.Core;
 using RepayblApi.Models;
@@ -19,10 +20,22 @@ namespace RepayblApi.Controllers
 
         }
         [HttpGet]
-        public ActionResult<IEnumerable<DTOs.Property>> GetMany()
+        public ActionResult<IEnumerable<DTOs.Property>> GetMany(Guid? userID = null, string name = null, bool isIncludeRooms = false)
         {
-            return Context.Properties.AsEnumerable().Select(ConvertModels<DTOs.Property, Models.Property>).ToList();
-            //return await Task.FromResult(ConvertModels<DTOs.User, Models.User>(user));
+            IQueryable<Property> query = Context.Properties;
+            if (userID != null)
+            {
+                query = query.Where(x => x.UserId == userID);
+            }
+            if (!string.IsNullOrEmpty(name))
+            {
+                query = query.Where(x => x.Name == name);
+            }
+            if (isIncludeRooms)
+            {
+                query = query.Include(x => x.Rooms);
+            }
+            return query.AsEnumerable().Select(ConvertModels<DTOs.Property, Models.Property>).ToList();
         }
         [HttpGet("{id}")]
         public ActionResult<DTOs.Property> GetProperty(Guid id)
@@ -44,6 +57,20 @@ namespace RepayblApi.Controllers
             await Context.Properties.AddAsync(dbobj);
             await Context.SaveChangesAsync();
             return Ok();
+        }
+        [HttpGet("Rooms")]
+        public ActionResult<IEnumerable<DTOs.Room>> GetRooms(Guid? propertyId = null, string roomNo = null)
+        {
+            IQueryable<Room> query = Context.Rooms;
+            if (propertyId != null)
+            {
+                query = query.Where(x => x.PropertyId == propertyId);
+            }
+            if (!string.IsNullOrEmpty(roomNo))
+            {
+                query = query.Where(x => x.RoomNo == roomNo);
+            }
+            return query.AsEnumerable().Select(ConvertModels<DTOs.Room, Models.Room>).ToList();
         }
     }
 }

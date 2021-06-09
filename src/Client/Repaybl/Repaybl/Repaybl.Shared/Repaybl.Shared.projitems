@@ -72,5 +72,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\logo.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\logo-dark.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\logo-light.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\NoBuilding.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\NoPicture.png" />
   </ItemGroup>
 </Project>
