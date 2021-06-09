@@ -23,7 +23,8 @@ namespace RepayblApi.Models
         public virtual DbSet<TenantDocument> TenantDocuments { get; set; }
         public virtual DbSet<TenantOutstanding> TenantOutstandings { get; set; }
         public virtual DbSet<User> Users { get; set; }
-
+        public virtual DbSet<Service> Services { get; set; }
+        public virtual DbSet<TenantService> TenantServices { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");

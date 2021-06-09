@@ -1,7 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
+using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -17,7 +18,7 @@ namespace RepayblApi.Models
         public string FirstName { get; set; }
         [StringLength(50)]
         public string LastName { get; set; }
-        [Required]
+
         [StringLength(10)]
         public string Gender { get; set; }
         [Column(TypeName = "datetime")]

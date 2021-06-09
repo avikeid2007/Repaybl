@@ -14,6 +14,8 @@ namespace RepayblApi.Core
                 cfg.CreateMap<User, DTOs.User>();
                 cfg.CreateMap<DTOs.Property, Property>();
                 cfg.CreateMap<Property, DTOs.Property>();
+                cfg.CreateMap<DTOs.Room, Room>();
+                cfg.CreateMap<Room, DTOs.Room>();
                 //cfg.CreateMap<Author, DTOs.Author>()
                 // .ForMember(x => x.ProfilePic, o => o.MapFrom(x => $"{baseUrl}/api/author/{x.Id}/thumbnail"))
                 // .ForMember(x => x.CoverPic, o => o.MapFrom(x => $"{baseUrl}/api/author/{x.Id}/cover"));

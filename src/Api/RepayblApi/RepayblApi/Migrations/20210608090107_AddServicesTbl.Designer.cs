@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepayblApi.Models;
 
 namespace RepayblApi.Migrations
 {
     [DbContext(typeof(RepayblContext))]
-    partial class RepayblContextModelSnapshot : ModelSnapshot
+    [Migration("20210608090107_AddServicesTbl")]
+    partial class AddServicesTbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -400,9 +402,6 @@ namespace RepayblApi.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int?>("Zip")
                         .HasColumnType("int");
 
@@ -414,8 +413,6 @@ namespace RepayblApi.Migrations
 
                     b.HasIndex("Phone")
                         .IsUnique();
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Tenants");
                 });
@@ -706,17 +703,6 @@ namespace RepayblApi.Migrations
                     b.Navigation("Property");
                 });
 
-            modelBuilder.Entity("RepayblApi.Models.Tenant", b =>
-                {
-                    b.HasOne("RepayblApi.Models.User", "User")
-                        .WithMany("Tenants")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("RepayblApi.Models.TenantDocument", b =>
                 {
                     b.HasOne("RepayblApi.Models.Tenant", "Tenant")
@@ -791,8 +777,6 @@ namespace RepayblApi.Migrations
             modelBuilder.Entity("RepayblApi.Models.User", b =>
                 {
                     b.Navigation("Properties");
-
-                    b.Navigation("Tenants");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepayblApi.Models;
 
 namespace RepayblApi.Migrations
 {
     [DbContext(typeof(RepayblContext))]
-    partial class RepayblContextModelSnapshot : ModelSnapshot
+    [Migration("20210608135347_AddUserID")]
+    partial class AddUserID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

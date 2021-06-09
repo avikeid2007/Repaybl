@@ -20,7 +20,7 @@ namespace Repaybl.Swag
     {
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Property>> GetManyAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Property>> GetManyAsync(System.Guid? userID = null, string name = null, bool? isIncludeRooms = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
@@ -29,6 +29,10 @@ namespace Repaybl.Swag
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
         System.Threading.Tasks.Task<Property> GetPropertyAsync(System.Guid id, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+    
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Room>> GetRoomsAsync(System.Guid? propertyId = null, string roomNo = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
     }
     
@@ -59,10 +63,23 @@ namespace Repaybl.Swag
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Property>> GetManyAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Property>> GetManyAsync(System.Guid? userID = null, string name = null, bool? isIncludeRooms = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var urlBuilder_ = new System.Text.StringBuilder();
-            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Property");
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Property?");
+            if (userID != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("userID") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userID, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (name != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("name") + "=").Append(System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (isIncludeRooms != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("isIncludeRooms") + "=").Append(System.Uri.EscapeDataString(ConvertToString(isIncludeRooms, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
     
             var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
             var disposeClient_ = true;
@@ -263,6 +280,81 @@ namespace Repaybl.Swag
             }
         }
     
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Room>> GetRoomsAsync(System.Guid? propertyId = null, string roomNo = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Property/Rooms?");
+            if (propertyId != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("propertyId") + "=").Append(System.Uri.EscapeDataString(ConvertToString(propertyId, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (roomNo != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("roomNo") + "=").Append(System.Uri.EscapeDataString(ConvertToString(roomNo, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
+    
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
+            var disposeClient_ = true;
+            try
+            {
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+    
+                    PrepareRequest(client_, request_, urlBuilder_);
+    
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+    
+                    PrepareRequest(client_, request_, url_);
+    
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+    
+                        ProcessResponse(client_, response_);
+    
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Room>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+    
         protected struct ObjectResponseResult<T>
         {
             public ObjectResponseResult(T responseObject, string responseText)
@@ -376,7 +468,7 @@ namespace Repaybl.Swag
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<User> GetCurrentUserAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<bool> GetCurrentUserAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
     }
     
@@ -551,7 +643,7 @@ namespace Repaybl.Swag
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<User> GetCurrentUserAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<bool> GetCurrentUserAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/User/CurrentUser");
@@ -588,7 +680,7 @@ namespace Repaybl.Swag
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<User>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<bool>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -928,6 +1020,7 @@ namespace Repaybl.Swag
         private int _floorCount;
         private string _remarks;
         private System.Guid _userId;
+        private System.Collections.Generic.ICollection<Room> _rooms;
     
         [System.Text.Json.Serialization.JsonPropertyName("id")]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -1072,6 +1165,229 @@ namespace Repaybl.Swag
                 if (_userId != value)
                 {
                     _userId = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("rooms")]
+        public System.Collections.Generic.ICollection<Room> Rooms
+        {
+            get { return _rooms; }
+            set
+            {
+                if (_rooms != value)
+                {
+                    _rooms = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+    
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) 
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Room : AuditorBase
+    {
+        private System.Guid _id;
+        private string _roomNo;
+        private int? _roomFloorNo;
+        private System.Guid _propertyId;
+        private System.Guid? _currentTenantId;
+        private System.DateTimeOffset? _lastBillPaidDate;
+        private System.Guid? _lastPaidBillId;
+    
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid Id
+        {
+            get { return _id; }
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("roomNo")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [System.ComponentModel.DataAnnotations.StringLength(10)]
+        public string RoomNo
+        {
+            get { return _roomNo; }
+            set
+            {
+                if (_roomNo != value)
+                {
+                    _roomNo = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("roomFloorNo")]
+        public int? RoomFloorNo
+        {
+            get { return _roomFloorNo; }
+            set
+            {
+                if (_roomFloorNo != value)
+                {
+                    _roomFloorNo = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("propertyId")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid PropertyId
+        {
+            get { return _propertyId; }
+            set
+            {
+                if (_propertyId != value)
+                {
+                    _propertyId = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("currentTenantId")]
+        public System.Guid? CurrentTenantId
+        {
+            get { return _currentTenantId; }
+            set
+            {
+                if (_currentTenantId != value)
+                {
+                    _currentTenantId = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("lastBillPaidDate")]
+        public System.DateTimeOffset? LastBillPaidDate
+        {
+            get { return _lastBillPaidDate; }
+            set
+            {
+                if (_lastBillPaidDate != value)
+                {
+                    _lastBillPaidDate = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("lastPaidBillId")]
+        public System.Guid? LastPaidBillId
+        {
+            get { return _lastPaidBillId; }
+            set
+            {
+                if (_lastPaidBillId != value)
+                {
+                    _lastPaidBillId = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+    
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v12.0.0.0)")]
+    public abstract partial class AuditorBase : System.ComponentModel.INotifyPropertyChanged
+    {
+        private System.DateTimeOffset _created;
+        private string _createdBy;
+        private System.DateTimeOffset? _modified;
+        private string _modifiedBy;
+        private bool _isDeleted;
+    
+        [System.Text.Json.Serialization.JsonPropertyName("created")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.DateTimeOffset Created
+        {
+            get { return _created; }
+            set
+            {
+                if (_created != value)
+                {
+                    _created = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("createdBy")]
+        public string CreatedBy
+        {
+            get { return _createdBy; }
+            set
+            {
+                if (_createdBy != value)
+                {
+                    _createdBy = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("modified")]
+        public System.DateTimeOffset? Modified
+        {
+            get { return _modified; }
+            set
+            {
+                if (_modified != value)
+                {
+                    _modified = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("modifiedBy")]
+        public string ModifiedBy
+        {
+            get { return _modifiedBy; }
+            set
+            {
+                if (_modifiedBy != value)
+                {
+                    _modifiedBy = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("isDeleted")]
+        public bool IsDeleted
+        {
+            get { return _isDeleted; }
+            set
+            {
+                if (_isDeleted != value)
+                {
+                    _isDeleted = value;
                     RaisePropertyChanged();
                 }
             }

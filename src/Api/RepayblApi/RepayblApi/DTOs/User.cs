@@ -4,8 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-using RepayblApi.Models;
-
 namespace RepayblApi.DTOs
 {
     public partial class User
@@ -13,7 +11,6 @@ namespace RepayblApi.DTOs
 
         [Key]
         public Guid Id { get; set; }
-
         public bool IsAuth { get; set; }
         public bool IsPropertyOwner { get; set; }
         [Required]
@@ -37,6 +34,7 @@ namespace RepayblApi.DTOs
         [StringLength(255)]
         public string Email { get; set; }
         public string Password { get; set; }
+
 
     }
 }

@@ -70,15 +70,14 @@ namespace RepayblApi.Controllers
         }
         [HttpGet("CurrentUser")]
 
-        public async Task<ActionResult<DTOs.User>> GetCurrentUserAsync()
+        public async Task<ActionResult<bool>> GetCurrentUserAsync()
         {
-            Models.User user = new Models.User();
             if (User.Identity.IsAuthenticated)
             {
                 var email = User.FindFirstValue(ClaimTypes.Email);
-                user = await Context.Users.SingleOrDefaultAsync(x => x.Email.Equals(email));
+                return await Context.Users.AnyAsync(x => x.Email.Equals(email));
             }
-            return await Task.FromResult(ConvertModels<DTOs.User, Models.User>(user));
+            return false;
         }
 
     }

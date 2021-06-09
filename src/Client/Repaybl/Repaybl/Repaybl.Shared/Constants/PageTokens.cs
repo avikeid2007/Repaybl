@@ -8,8 +8,10 @@ namespace Repaybl.Constants
 {
     public enum PageTokens
     {
+        Dashboard,
         Properties,
-        Tenants
+        Tenants,
+        Profile
     }
     public static class ServiceExtensions
     {

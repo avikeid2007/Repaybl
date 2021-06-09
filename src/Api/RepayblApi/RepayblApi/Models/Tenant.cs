@@ -44,7 +44,13 @@ namespace RepayblApi.Models
         public string Phone { get; set; }
         [StringLength(255)]
         public string Email { get; set; }
+        [Column(TypeName = "datetime")]
+        public DateTime? DOJ { get; set; }
+        public Guid UserId { get; set; }
 
+        [ForeignKey(nameof(UserId))]
+        [InverseProperty("Tenants")]
+        public virtual User User { get; set; }
         [InverseProperty(nameof(FamilyDetail.Tenant))]
         public virtual ICollection<FamilyDetail> FamilyDetails { get; set; }
         [InverseProperty(nameof(RentTransaction.PaidByNavigation))]
@@ -55,5 +61,7 @@ namespace RepayblApi.Models
         public virtual ICollection<TenantDocument> TenantDocuments { get; set; }
         [InverseProperty(nameof(TenantOutstanding.Tenant))]
         public virtual ICollection<TenantOutstanding> TenantOutstandings { get; set; }
+        [InverseProperty(nameof(TenantService.Tenant))]
+        public virtual ICollection<TenantService> TenantServices { get; set; }
     }
 }

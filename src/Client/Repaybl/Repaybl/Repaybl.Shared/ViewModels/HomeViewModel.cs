@@ -7,6 +7,7 @@ using BasicMvvm.Commands;
 
 using Repaybl.Constants;
 
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace Repaybl.ViewModels
@@ -55,20 +56,18 @@ namespace Repaybl.ViewModels
         }
         private void ToggleTheme()
         {
-#if WINDOWS_UWP
             // Set theme for window root.
-            //if (Window.Current.Content is FrameworkElement frameworkElement)
-            //{
-            //    if (frameworkElement.ActualTheme == ElementTheme.Dark)
-            //    {
-            //        frameworkElement.RequestedTheme = ElementTheme.Light;
-            //    }
-            //    else
-            //    {
-            //        frameworkElement.RequestedTheme = ElementTheme.Dark;
-            //    }
-            //}
-#endif
+            if (Window.Current.Content is FrameworkElement frameworkElement)
+            {
+                if (frameworkElement.ActualTheme == ElementTheme.Dark)
+                {
+                    frameworkElement.RequestedTheme = ElementTheme.Light;
+                }
+                else
+                {
+                    frameworkElement.RequestedTheme = ElementTheme.Dark;
+                }
+            }
         }
     }
 }

@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
+using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -25,11 +26,11 @@ namespace RepayblApi.Models
         public string RoomNo { get; set; }
         public int? RoomFloorNo { get; set; }
         public Guid PropertyId { get; set; }
-        public Guid CurrentTenantId { get; set; }
-        [Column(TypeName = "numeric(8, 2)")]
-        public decimal MonthlyRent { get; set; }
-        [Column(TypeName = "numeric(2, 2)")]
-        public decimal ElectRate { get; set; }
+        public Guid? CurrentTenantId { get; set; }
+        //[Column(TypeName = "numeric(8, 2)")]
+        //public decimal MonthlyRent { get; set; }
+        //[Column(TypeName = "numeric(2, 2)")]
+        //public decimal ElectRate { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime? LastBillPaidDate { get; set; }
         public Guid? LastPaidBillId { get; set; }
