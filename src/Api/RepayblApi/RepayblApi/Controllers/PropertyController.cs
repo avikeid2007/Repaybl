@@ -52,11 +52,27 @@ namespace RepayblApi.Controllers
         [HttpPost]
         public async Task<ActionResult> SavePropertyAsync(DTOs.Property property)
         {
-            var dbobj = ConvertModels<Property, DTOs.Property>(property);
-            MapCreated(dbobj);
-            await Context.Properties.AddAsync(dbobj);
-            await Context.SaveChangesAsync();
-            return Ok();
+            if (property != null)
+            {
+                var dbobj = await Context.Properties.SingleOrDefaultAsync(x => x.Id == property.Id);
+                if (dbobj == null)
+                {
+                    dbobj = ConvertModels<Property, DTOs.Property>(property);
+                    MapCreated(dbobj);
+                    await Context.Properties.AddAsync(dbobj);
+                    await Context.SaveChangesAsync();
+                    return Ok();
+                }
+                else
+                {
+                    MapModels(property, dbobj);
+                    MapModified(dbobj);
+                    Context.Properties.Update(dbobj);
+                    await Context.SaveChangesAsync();
+                    return Ok();
+                }
+            }
+            return BadRequest();
         }
         [HttpGet("Rooms")]
         public ActionResult<IEnumerable<DTOs.Room>> GetRooms(Guid? propertyId = null, string roomNo = null)

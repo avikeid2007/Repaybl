@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 
 using Repaybl.Constants;
 using Repaybl.Helpers;
+using Repaybl.Services;
+using Repaybl.Services.Abstractions;
 using Repaybl.Swag;
 
 using Windows.ApplicationModel;
@@ -54,6 +56,8 @@ namespace Repaybl
             // TODO - Register dependencies
             serviceCollection.AddTransient<IPropertyClient, PropertyClient>();
             serviceCollection.AddTransient<IUserClient, UserClient>();
+            serviceCollection.AddTransient<IListClient, ListClient>();
+            serviceCollection.AddTransient<IDropDownService, DropDownService>();
             // Build the IServiceProvider and return it
             return serviceCollection.BuildServiceProvider();
         }
@@ -66,14 +70,14 @@ namespace Repaybl
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            this.Resources.MergedDictionaries.Add(new global::Uno.Material.MaterialColorPalette());
+            //this.Resources.MergedDictionaries.Add(new global::Uno.Material.MaterialColorPalette());
 
-            // Overlap the default colors with the application's colors palette.
-            // TODO: Replace ms-appx:///Views/ColorPaletteOverride.xaml with your resourceDictionary.
-            this.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("ms-appx:///Styles/ColorPaletteOverride.xaml") });
+            //// Overlap the default colors with the application's colors palette.
+            //// TODO: Replace ms-appx:///Views/ColorPaletteOverride.xaml with your resourceDictionary.
+            //this.Resources.MergedDictionaries.Add(new ResourceDictionary() { Source = new Uri("ms-appx:///Styles/ColorPaletteOverride.xaml") });
 
-            // Add all the material resources. Those resources depend on the colors above, which is why this one must be added last.
-            this.Resources.MergedDictionaries.Add(new global::Uno.Material.MaterialResources());
+            //// Add all the material resources. Those resources depend on the colors above, which is why this one must be added last.
+            //this.Resources.MergedDictionaries.Add(new global::Uno.Material.MaterialResources());
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {

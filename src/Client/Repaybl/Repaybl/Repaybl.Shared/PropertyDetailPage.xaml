@@ -5,12 +5,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:extensions="using:Uno.Material.Extensions"
     xmlns:local="using:Repaybl"
+    xmlns:material="using:Uno.Material.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:Repaybl.Swag"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
     mc:Ignorable="d">
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
@@ -21,17 +24,17 @@
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
-            <TextBlock Style="{StaticResource MaterialHeadline4}" Text="My Properties" />
-            <Button
+            <TextBlock Style="{StaticResource MaterialHeadline4}" Text="Add/Edit Property" />
+            <!--<Button
                 Grid.Column="1"
                 Command="{x:Bind VM.SavePropertyCommand}"
                 Style="{StaticResource MaterialFabStyle}">
                 <extensions:ControlExtensions.Icon>
                     <SymbolIcon Symbol="Save" />
                 </extensions:ControlExtensions.Icon>
-            </Button>
+            </Button>-->
         </Grid>
-        <Grid Grid.Row="1" Margin="16,8,16,0">
+        <Grid Grid.Row="1" Margin="16">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -44,10 +47,9 @@
             </Grid.RowDefinitions>
             <TextBox
                 VerticalAlignment="Center"
-                BorderBrush="#ccc"
-                CornerRadius="4"
+                Background="Transparent"
                 PlaceholderText="Property Name"
-                Style="{StaticResource MaterialOutlinedTextBoxStyle}"
+                Style="{StaticResource MaterialFilledTextBoxStyle}"
                 Text="{x:Bind VM.SelectedProperty.Name, Mode=TwoWay}">
                 <extensions:ControlExtensions.Icon>
                     <SymbolIcon Symbol="Rename" />
@@ -57,10 +59,9 @@
                 Grid.Row="1"
                 Margin="0,8,0,0"
                 VerticalAlignment="Center"
-                BorderBrush="#ccc"
-                CornerRadius="4"
+                Background="Transparent"
                 PlaceholderText="Address"
-                Style="{StaticResource MaterialOutlinedTextBoxStyle}"
+                Style="{StaticResource MaterialFilledTextBoxStyle}"
                 Text="{x:Bind VM.SelectedProperty.Address, Mode=TwoWay}">
                 <extensions:ControlExtensions.Icon>
                     <SymbolIcon Symbol="Account" />
@@ -71,54 +72,61 @@
                 Grid.Row="2"
                 Margin="0,8,0,0"
                 VerticalAlignment="Center"
-                BorderBrush="#ccc"
-                CornerRadius="4"
+                Background="Transparent"
                 PlaceholderText="City"
-                Style="{StaticResource MaterialOutlinedTextBoxStyle}"
+                Style="{StaticResource MaterialFilledTextBoxStyle}"
                 Text="{x:Bind VM.SelectedProperty.City, Mode=TwoWay}">
                 <extensions:ControlExtensions.Icon>
                     <SymbolIcon Symbol="Mail" />
                 </extensions:ControlExtensions.Icon>
             </TextBox>
-
-            <ComboBox
+            <TextBox
                 Grid.Row="3"
                 Margin="0,8,0,0"
-                BorderBrush="#ccc"
-                CornerRadius="4"
-                Header="Country"
-                ItemsSource="abcdefg"
-                PlaceholderText="Country"
-                Style="{StaticResource MaterialComboBoxStyle}">
-                <extensions:ControlExtensions.Icon>
-                    <SymbolIcon Symbol="Map" />
-                </extensions:ControlExtensions.Icon>
-            </ComboBox>
-            <ComboBox
-                Grid.Row="4"
-                Margin="0,8,0,0"
                 VerticalAlignment="Center"
-                BorderBrush="#ccc"
-                CornerRadius="4"
-                ItemsSource="abcdefg"
-                PlaceholderText="State"
-                Style="{StaticResource MaterialComboBoxStyle}">
-                <extensions:ControlExtensions.Icon>
-                    <SymbolIcon Symbol="MapPin" />
-                </extensions:ControlExtensions.Icon>
-            </ComboBox>
-            <TextBox
-                Grid.Row="5"
-                Margin="0,8,0,0"
-                VerticalAlignment="Center"
-                BorderBrush="#ccc"
-                CornerRadius="4"
+                Background="Transparent"
                 PlaceholderText="Zip"
-                Style="{StaticResource MaterialOutlinedTextBoxStyle}">
+                Style="{StaticResource MaterialFilledTextBoxStyle}"
+                Text="{x:Bind VM.SelectedProperty.Zip, Mode=TwoWay}">
                 <extensions:ControlExtensions.Icon>
                     <SymbolIcon Symbol="MapDrive" />
                 </extensions:ControlExtensions.Icon>
             </TextBox>
+            <ComboBox
+                Grid.Row="4"
+                Margin="0,8,0,0"
+                HorizontalAlignment="Stretch"
+                BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}"
+                BorderThickness="0,0,0,1"
+                CornerRadius="4"
+                DisplayMemberPath="Name"
+                Header="Country"
+                ItemsSource="{x:Bind VM.AllCountries, Mode=OneWay}"
+                PlaceholderText="Select"
+                SelectedItem="{Binding SelectedCountry, Mode=TwoWay}">
+                <!--<extensions:ControlExtensions.Icon>
+                    <SymbolIcon Symbol="Map" />
+                </extensions:ControlExtensions.Icon>-->
+
+            </ComboBox>
+            <ComboBox
+                Grid.Row="5"
+                Margin="0,8,0,0"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}"
+                BorderThickness="0,0,0,1"
+                DisplayMemberPath="Name"
+                Header="State"
+                ItemsSource="{x:Bind VM.AllStates, Mode=OneWay}"
+                PlaceholderText="Select"
+                SelectedItem="{Binding SelectedState, Mode=TwoWay}">
+                <!--<extensions:ControlExtensions.Icon>
+                    <SymbolIcon Symbol="MapPin" />
+                </extensions:ControlExtensions.Icon>-->
+
+            </ComboBox>
+
             <StackPanel
                 Grid.Row="6"
                 Margin="0,8,0,0"
@@ -126,7 +134,7 @@
                 Orientation="Horizontal">
 
                 <Button
-                    Command="{x:Bind VM.SavePropertyCommand}"
+                    Command="{x:Bind VM.ResetPropertyCommand}"
                     Content="Reset"
                     Style="{StaticResource MaterialContainedButtonStyle}" />
                 <Button
@@ -137,25 +145,32 @@
                     Style="{StaticResource MaterialContainedButtonStyle}" />
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="2">
+        <material:Divider Grid.Row="2" Style="{StaticResource MaterialDividerStyle}" />
+        <Grid Grid.Row="3" Margin="16">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <TextBlock Style="{StaticResource MaterialHeadline4}" Text="Rooms" />
-            <!--<Button
+            <Button
                 Grid.Column="1"
-                Command="{x:Bind VM.SavePropertyCommand}"
-                Style="{StaticResource MaterialFabStyle}">
-                <extensions:ControlExtensions.Icon>
-                    <SymbolIcon Symbol="Save" />
-                </extensions:ControlExtensions.Icon>
-            </Button>-->
+                Command="{x:Bind VM.AddRoomCommand}"
+                Style="{StaticResource MaterialContainedButtonStyle}">
+                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                    <SymbolIcon Symbol="Add" />
+                    <TextBlock
+                        Margin="16,0,0,0"
+                        VerticalAlignment="Center"
+                        Text="Add New Room" />
+                </StackPanel>
+            </Button>
         </Grid>
-        <!--<GridView
+        <GridView
             Grid.Row="3"
-            HorizontalAlignment="Center"
-            ItemsSource="123456781234567812345678">
+            Margin="16,16"
+            HorizontalAlignment="Stretch"
+            ItemsSource="{x:Bind VM.SelectedProperty.Rooms, Mode=OneWay}"
+            SelectedItem="{Binding SelectedRoom, Mode=TwoWay}">
             <GridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">
                     <Setter Property="VerticalContentAlignment" Value="Stretch" />
@@ -163,24 +178,122 @@
                 </Style>
             </GridView.ItemContainerStyle>
             <GridView.ItemTemplate>
-                <DataTemplate>
-                    --><!--  Background  --><!--
+                <DataTemplate x:DataType="models:Room">
                     <Grid
-                        Width="120"
-                        Height="120"
-                        Margin="5"
-                        Background="Red"
-                        CornerRadius="5">
-                        --><!--  Some Text  --><!--
+                        Width="480"
+                        Height="140"
+                        Padding="4,16"
+                        HorizontalAlignment="Left"
+                        BorderBrush="#ccc"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            Grid.RowSpan="4"
+                            Width="100"
+                            HorizontalAlignment="Left"
+                            Source="ms-appx:///Assets/NoBuilding.png" />
                         <TextBlock
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Foreground="White"
-                            Style="{StaticResource MaterialHeadline4}"
-                            Text="{Binding}" />
+                            Grid.Column="1"
+                            Margin="4,4,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="{x:Bind RoomNo}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="4,4,0,0"
+                            Foreground="#666"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            <Run Text="Floor No:" />
+                            <Run Text="{x:Bind RoomFloorNo}" />
+                        </TextBlock>
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="4,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="Tenant Name :" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="4,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            <!--<Run Text="{x:Bind Address}" />
+                            <Run Text="{x:Bind City}" />
+                            <Run Text="{x:Bind State}" />
+                            <Run Text="{x:Bind Country}" />
+                            <Run Text="{x:Bind Zip}" />-->
+                        </TextBlock>
                     </Grid>
                 </DataTemplate>
+                <!--<DataTemplate x:DataType="models:Property">
+                    <Grid
+                        Width="260"
+                        Height="160"
+                        Padding="16,16"
+                        HorizontalAlignment="Left"
+                        BorderBrush="#ccc"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <PersonPicture
+                            Grid.RowSpan="2"
+                            Width="52"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Top"
+                            DisplayName="{x:Bind Name}" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="16,4,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="{x:Bind Name}" />
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="16,4,0,0"
+                            Foreground="#666"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            <Run Text="Rooms:" />
+                            <Run Text="{x:Bind Rooms.Count}" />
+                        </TextBlock>
+                        <TextBlock
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Margin="0,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="Address :" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Margin="0,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            <Run Text="{x:Bind Address}" />
+                            <Run Text="{x:Bind City}" />
+                            <Run Text="{x:Bind State}" />
+                            <Run Text="{x:Bind Country}" />
+                            <Run Text="{x:Bind Zip}" />
+                        </TextBlock>
+                    </Grid>
+                </DataTemplate>-->
             </GridView.ItemTemplate>
-        </GridView>-->
+        </GridView>
     </Grid>
 </Page>

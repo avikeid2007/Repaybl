@@ -22,10 +22,23 @@ namespace Repaybl.ViewModels
             _propertyClient = propertyClient;
             _ = GetAllPropertiesAsync();
         }
-
+        private Property _selectedProperty;
+        public Property SelectedProperty
+        {
+            get { return _selectedProperty; }
+            set
+            {
+                _selectedProperty = value;
+                if (value != null)
+                {
+                    _contentFrame.Navigate(typeof(PropertyDetailPage), value);
+                }
+                OnPropertyChanged();
+            }
+        }
         private async Task GetAllPropertiesAsync()
         {
-            var properties = await _propertyClient.GetManyAsync(userID: Globals.CurrentUserId);
+            var properties = await _propertyClient.GetManyAsync(userID: Globals.CurrentUserId, isIncludeRooms: true);
             if (properties?.Count > 0)
             {
                 AllProperty = new ObservableCollection<Property>(properties);

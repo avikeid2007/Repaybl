@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 
+using RepayblApi.Geo;
 using RepayblApi.Models;
 
 namespace RepayblApi
@@ -20,6 +21,7 @@ namespace RepayblApi
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            GeoBaseClient.ApiKey = Configuration.GetValue<string>("GeoApiKey");
         }
 
         public IConfiguration Configuration { get; }
@@ -51,6 +53,7 @@ namespace RepayblApi
                 };
             });
             services.AddSwaggerDocument();
+            services.AddTransient<IGeoClient, GeoClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
