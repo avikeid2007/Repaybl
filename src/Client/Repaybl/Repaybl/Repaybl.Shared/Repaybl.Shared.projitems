@@ -33,12 +33,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)PropertyDetailPage.xaml.cs">
       <DependentUpon>PropertyDetailPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)RoomPage.xaml.cs">
+      <DependentUpon>RoomPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\Abstractions\IDropDownService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DropDownService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HomeViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PropertiesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PropertyDetailViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RoomViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)HomePage.xaml">
@@ -54,6 +58,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)PropertyDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)RoomPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

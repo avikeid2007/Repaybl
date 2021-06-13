@@ -24,11 +24,11 @@ namespace Repaybl.ViewModels
         internal Frame _contentFrame;
         public ICommand SavePropertyCommand => new AsyncCommand(OnSavePropertyCommandAsync);
         public ICommand ResetPropertyCommand => new AsyncCommand(OnResetPropertyCommandAsync);
-        public ICommand AddRoomCommand => new AsyncCommand(OnAddRoomCommandAsync);
+        public ICommand AddRoomCommand => new DelegateCommand(OnAddRoomCommand);
 
-        private Task OnAddRoomCommandAsync()
+        private void OnAddRoomCommand()
         {
-            throw new NotImplementedException();
+            _contentFrame.Navigate(typeof(RoomPage), SelectedProperty.Id);
         }
 
         public PropertyDetailViewModel(IPropertyClient propertyClient, IDropDownService dropDownService)
@@ -48,7 +48,7 @@ namespace Repaybl.ViewModels
         private async Task FillStatesDropdownAsync(Country value)
         {
             AllStates = new List<State>(await _dropDownService.GetAllStatesAsync(value.Id));
-            if (SelectedProperty != null && !string.IsNullOrEmpty(SelectedProperty.State))
+            if (!string.IsNullOrEmpty(SelectedProperty?.State))
             {
                 SelectedState = AllStates?.FirstOrDefault(x => x.Name.Equals(SelectedProperty.State));
             }
@@ -56,7 +56,7 @@ namespace Repaybl.ViewModels
         private async Task FillDropdownAsync()
         {
             AllCountries = new List<Country>(await _dropDownService.GetAllCountriesAsync());
-            if (SelectedProperty != null && !string.IsNullOrEmpty(SelectedProperty.Country))
+            if (!string.IsNullOrEmpty(SelectedProperty?.Country))
             {
                 SelectedCountry = AllCountries?.FirstOrDefault(x => x.Name.Equals(SelectedProperty.Country));
             }
@@ -64,7 +64,10 @@ namespace Repaybl.ViewModels
 
         private async Task OnSavePropertyCommandAsync()
         {
-            await _propertyClient.SavePropertyAsync(SelectedProperty);
+            if (!string.IsNullOrEmpty(SelectedProperty?.Name))
+            {
+                await _propertyClient.SavePropertyAsync(SelectedProperty);
+            }
         }
         private async Task OnResetPropertyCommandAsync()
         {
@@ -145,6 +148,10 @@ namespace Repaybl.ViewModels
             set
             {
                 _selectedRoom = value;
+                if (value != null)
+                {
+                    _contentFrame.Navigate(typeof(RoomPage), value);
+                }
                 OnPropertyChanged();
             }
         }

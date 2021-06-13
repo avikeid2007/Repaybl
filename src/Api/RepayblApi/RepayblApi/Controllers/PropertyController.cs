@@ -74,7 +74,8 @@ namespace RepayblApi.Controllers
             }
             return BadRequest();
         }
-        [HttpGet("Rooms")]
+
+        [HttpGet("Room")]
         public ActionResult<IEnumerable<DTOs.Room>> GetRooms(Guid? propertyId = null, string roomNo = null)
         {
             IQueryable<Room> query = Context.Rooms;
@@ -87,6 +88,31 @@ namespace RepayblApi.Controllers
                 query = query.Where(x => x.RoomNo == roomNo);
             }
             return query.AsEnumerable().Select(ConvertModels<DTOs.Room, Models.Room>).ToList();
+        }
+        [HttpPost("Room")]
+        public async Task<ActionResult> SaveRoomAsync(DTOs.Room room)
+        {
+            if (room != null)
+            {
+                var dbobj = await Context.Rooms.SingleOrDefaultAsync(x => x.Id == room.Id);
+                if (dbobj == null)
+                {
+                    dbobj = ConvertModels<Room, DTOs.Room>(room);
+                    MapCreated(dbobj);
+                    await Context.Rooms.AddAsync(dbobj);
+                    await Context.SaveChangesAsync();
+                    return Ok();
+                }
+                else
+                {
+                    MapModels(room, dbobj);
+                    MapModified(dbobj);
+                    Context.Rooms.Update(dbobj);
+                    await Context.SaveChangesAsync();
+                    return Ok();
+                }
+            }
+            return BadRequest();
         }
     }
 }
