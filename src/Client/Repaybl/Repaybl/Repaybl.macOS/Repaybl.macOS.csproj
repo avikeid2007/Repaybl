@@ -76,13 +76,13 @@
       <Version>5.0.1</Version>
     </PackageReference>
     <PackageReference Include="Uno.Material">
-      <Version>1.0.0-dev.770</Version>
+      <Version>1.0.0-dev.778</Version>
     </PackageReference>
     <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.3-uno.95</Version>
     </PackageReference>
-    <PackageReference Include="Uno.UI" Version="3.8.0-dev.289" />
-    <PackageReference Include="Uno.UI.RemoteControl" Version="3.8.0-dev.289" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Uno.UI" Version="3.8.0-dev.461" />
+    <PackageReference Include="Uno.UI.RemoteControl" Version="3.8.0-dev.461" Condition="'$(Configuration)'=='Debug'" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
   </ItemGroup>

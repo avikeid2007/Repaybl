@@ -88,8 +88,8 @@
                         Grid.ColumnSpan="2"
                         Height="56"
                         VerticalAlignment="Center"
-                        Background="Transparent"
-                        PlaceholderText="First Name"
+
+                        PlaceholderText="First Name" Background="Transparent"
                         Style="{StaticResource MaterialFilledTextBoxStyle}"
                         Text="{x:Bind VM.RegisterUser.FirstName, Mode=TwoWay}">
                         <extensions:ControlExtensions.Icon>

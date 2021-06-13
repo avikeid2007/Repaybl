@@ -1,8 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿
+using Microsoft.Extensions.DependencyInjection;
 
+using Repaybl.Swag;
 using Repaybl.ViewModels;
 
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,6 +31,11 @@ namespace Repaybl
             VM._contentFrame = this.Frame;
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is Property property)
+                VM.SetParameter(property);
+        }
         internal PropertyDetailViewModel VM { get; }
     }
 }

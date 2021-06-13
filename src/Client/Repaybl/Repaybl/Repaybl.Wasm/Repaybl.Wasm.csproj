@@ -38,12 +38,12 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="5.0.0" />
     <PackageReference Include="Uno.Extensions.Logging.WebAssembly.Console" Version="1.1.0-dev.1" />
-    <PackageReference Include="Uno.Material" Version="1.0.0-dev.770" />
+    <PackageReference Include="Uno.Material" Version="1.0.0-dev.778" />
     <PackageReference Include="Uno.Microsoft.Xaml.Behaviors.Uwp.Managed" Version="2.0.3-uno.95" />
-    <PackageReference Include="Uno.UI.WebAssembly" Version="3.8.0-dev.289" />
-    <PackageReference Include="Uno.UI.RemoteControl" Version="3.8.0-dev.289" Condition="'$(Configuration)'=='Debug'" />
-    <PackageReference Include="Uno.Wasm.Bootstrap" Version="3.0.0-dev.85" />
-    <PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="3.0.0-dev.85" />
+    <PackageReference Include="Uno.UI.WebAssembly" Version="3.8.0-dev.461" />
+    <PackageReference Include="Uno.UI.RemoteControl" Version="3.8.0-dev.461" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Uno.Wasm.Bootstrap" Version="3.0.0-dev.87" />
+    <PackageReference Include="Uno.Wasm.Bootstrap.DevServer" Version="3.0.0-dev.87" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Repaybl.Swag\Repaybl.Swag.csproj" />

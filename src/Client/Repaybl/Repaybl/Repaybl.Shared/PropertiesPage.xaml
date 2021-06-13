@@ -64,7 +64,8 @@
             Grid.Row="2"
             Margin="16,16"
             HorizontalAlignment="Stretch"
-            ItemsSource="{x:Bind VM.AllProperty, Mode=OneWay}">
+            ItemsSource="{x:Bind VM.AllProperty, Mode=OneWay}"
+            SelectedItem="{Binding SelectedProperty, Mode=TwoWay}">
             <GridView.ItemContainerStyle>
                 <Style TargetType="GridViewItem">
                     <Setter Property="VerticalContentAlignment" Value="Stretch" />
