@@ -13,8 +13,8 @@ namespace Repaybl.Swag
 {
     public class BaseClient
     {
-        //public string BaseUrl { get; set; } = "http://repaybl.avnishkumar.co.in/";
-        public string BaseUrl { get; set; } = "http://localhost:46606/";
+        public string BaseUrl { get; set; } = "http://repaybl.avnishkumar.co.in/";
+        //public string BaseUrl { get; set; } = "http://localhost:46606/";
         private static string bearerToken { get; set; }
         public static void SetBearerToken(string token)
         {

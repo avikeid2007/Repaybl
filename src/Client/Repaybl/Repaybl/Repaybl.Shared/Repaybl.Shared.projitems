@@ -38,11 +38,19 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\Abstractions\IDropDownService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DropDownService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TenantDetailPage.xaml.cs">
+      <DependentUpon>TenantDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)TenantPage.xaml.cs">
+      <DependentUpon>TenantPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HomeViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PropertiesViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PropertyDetailViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\RoomViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TenantDetailViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TenantViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="$(MSBuildThisFileDirectory)HomePage.xaml">
@@ -66,6 +74,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="$(MSBuildThisFileDirectory)Styles\ColorPaletteOverride.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)TenantDetailPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)TenantPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,32 +1,40 @@
-﻿
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
+using Repaybl.Swag;
 using Repaybl.ViewModels;
 
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace Repaybl
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class TenantDetailPage : Page
     {
-        MainViewModel VM { get; set; }
-        public MainPage()
+        public TenantDetailPage()
         {
             this.InitializeComponent();
             var container = ((App)App.Current).Container;
             // Request an instance of the ViewModel and set it to the DataContext
-            VM = (MainViewModel)ActivatorUtilities.GetServiceOrCreateInstance(container, typeof(MainViewModel));
+            VM = (TenantDetailViewModel)ActivatorUtilities.GetServiceOrCreateInstance(container, typeof(TenantDetailViewModel));
             DataContext = VM;
             this.Loaded += PropertiesPage_Loaded;
         }
+
         private void PropertiesPage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             VM._contentFrame = this.Frame;
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter is Tenant tenant)
+                VM.SetParameter(tenant);
+        }
+        internal TenantDetailViewModel VM { get; }
     }
 }

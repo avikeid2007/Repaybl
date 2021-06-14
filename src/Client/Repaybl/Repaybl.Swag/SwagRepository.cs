@@ -805,6 +805,301 @@ namespace Repaybl.Swag
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.11.2.0 (NJsonSchema v10.4.4.0 (Newtonsoft.Json v12.0.0.0))")]
+    public partial interface ITenantClient
+    {
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Tenant>> GetManyAsync(System.Guid? userID = null, string name = null, bool? isIncludeServices = null, bool? isIncludeRooms = null, bool? isIncludeFamily = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+    
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        System.Threading.Tasks.Task<FileResponse> SaveTenantAsync(Tenant tenant, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.11.2.0 (NJsonSchema v10.4.4.0 (Newtonsoft.Json v12.0.0.0))")]
+    public partial class TenantClient : Repaybl.Swag.BaseClient, ITenantClient
+    {
+        private System.Lazy<System.Text.Json.JsonSerializerOptions> _settings;
+    
+        public TenantClient()
+        {
+            _settings = new System.Lazy<System.Text.Json.JsonSerializerOptions>(CreateSerializerSettings);
+        }
+    
+        private System.Text.Json.JsonSerializerOptions CreateSerializerSettings()
+        {
+            var settings = new System.Text.Json.JsonSerializerOptions();
+            UpdateJsonSerializerSettings(settings);
+            return settings;
+        }
+    
+        protected System.Text.Json.JsonSerializerOptions JsonSerializerSettings { get { return _settings.Value; } }
+    
+        partial void UpdateJsonSerializerSettings(System.Text.Json.JsonSerializerOptions settings);
+    
+    
+        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
+        partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
+        partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Tenant>> GetManyAsync(System.Guid? userID = null, string name = null, bool? isIncludeServices = null, bool? isIncludeRooms = null, bool? isIncludeFamily = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Tenant?");
+            if (userID != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("userID") + "=").Append(System.Uri.EscapeDataString(ConvertToString(userID, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (name != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("name") + "=").Append(System.Uri.EscapeDataString(ConvertToString(name, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (isIncludeServices != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("isIncludeServices") + "=").Append(System.Uri.EscapeDataString(ConvertToString(isIncludeServices, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (isIncludeRooms != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("isIncludeRooms") + "=").Append(System.Uri.EscapeDataString(ConvertToString(isIncludeRooms, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (isIncludeFamily != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("isIncludeFamily") + "=").Append(System.Uri.EscapeDataString(ConvertToString(isIncludeFamily, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            urlBuilder_.Length--;
+    
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
+            var disposeClient_ = true;
+            try
+            {
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
+    
+                    PrepareRequest(client_, request_, urlBuilder_);
+    
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+    
+                    PrepareRequest(client_, request_, url_);
+    
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+    
+                        ProcessResponse(client_, response_);
+    
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Tenant>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+    
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public async System.Threading.Tasks.Task<FileResponse> SaveTenantAsync(Tenant tenant, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        {
+            if (tenant == null)
+                throw new System.ArgumentNullException("tenant");
+    
+            var urlBuilder_ = new System.Text.StringBuilder();
+            urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/api/Tenant");
+    
+            var client_ = await CreateHttpClientAsync(cancellationToken).ConfigureAwait(false);
+            var disposeClient_ = true;
+            try
+            {
+                using (var request_ = await CreateHttpRequestMessageAsync(cancellationToken).ConfigureAwait(false))
+                {
+                    var content_ = new System.Net.Http.StringContent(System.Text.Json.JsonSerializer.Serialize(tenant, _settings.Value));
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/octet-stream"));
+    
+                    PrepareRequest(client_, request_, urlBuilder_);
+    
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+    
+                    PrepareRequest(client_, request_, url_);
+    
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = System.Linq.Enumerable.ToDictionary(response_.Headers, h_ => h_.Key, h_ => h_.Value);
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+    
+                        ProcessResponse(client_, response_);
+    
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200 || status_ == 206)
+                        {
+                            var responseStream_ = response_.Content == null ? System.IO.Stream.Null : await response_.Content.ReadAsStreamAsync().ConfigureAwait(false);
+                            var fileResponse_ = new FileResponse(status_, headers_, responseStream_, client_, response_); 
+                            disposeClient_ = false; disposeResponse_ = false; // response and client are disposed by FileResponse
+                            return fileResponse_;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+    
+        protected struct ObjectResponseResult<T>
+        {
+            public ObjectResponseResult(T responseObject, string responseText)
+            {
+                this.Object = responseObject;
+                this.Text = responseText;
+            }
+    
+            public T Object { get; }
+    
+            public string Text { get; }
+        }
+    
+        public bool ReadResponseAsString { get; set; }
+        
+        protected virtual async System.Threading.Tasks.Task<ObjectResponseResult<T>> ReadObjectResponseAsync<T>(System.Net.Http.HttpResponseMessage response, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, System.Threading.CancellationToken cancellationToken)
+        {
+            if (response == null || response.Content == null)
+            {
+                return new ObjectResponseResult<T>(default(T), string.Empty);
+            }
+        
+            if (ReadResponseAsString)
+            {
+                var responseText = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                try
+                {
+                    var typedBody = System.Text.Json.JsonSerializer.Deserialize<T>(responseText, JsonSerializerSettings);
+                    return new ObjectResponseResult<T>(typedBody, responseText);
+                }
+                catch (System.Text.Json.JsonException exception)
+                {
+                    var message = "Could not deserialize the response body string as " + typeof(T).FullName + ".";
+                    throw new ApiException(message, (int)response.StatusCode, responseText, headers, exception);
+                }
+            }
+            else
+            {
+                try
+                {
+                    using (var responseStream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
+                    {
+                        var typedBody = await System.Text.Json.JsonSerializer.DeserializeAsync<T>(responseStream, JsonSerializerSettings, cancellationToken).ConfigureAwait(false);
+                        return new ObjectResponseResult<T>(typedBody, string.Empty);
+                    }
+                }
+                catch (System.Text.Json.JsonException exception)
+                {
+                    var message = "Could not deserialize the response body stream as " + typeof(T).FullName + ".";
+                    throw new ApiException(message, (int)response.StatusCode, string.Empty, headers, exception);
+                }
+            }
+        }
+    
+        private string ConvertToString(object value, System.Globalization.CultureInfo cultureInfo)
+        {
+            if (value == null)
+            {
+                return "";
+            }
+        
+            if (value is System.Enum)
+            {
+                var name = System.Enum.GetName(value.GetType(), value);
+                if (name != null)
+                {
+                    var field = System.Reflection.IntrospectionExtensions.GetTypeInfo(value.GetType()).GetDeclaredField(name);
+                    if (field != null)
+                    {
+                        var attribute = System.Reflection.CustomAttributeExtensions.GetCustomAttribute(field, typeof(System.Runtime.Serialization.EnumMemberAttribute)) 
+                            as System.Runtime.Serialization.EnumMemberAttribute;
+                        if (attribute != null)
+                        {
+                            return attribute.Value != null ? attribute.Value : name;
+                        }
+                    }
+        
+                    var converted = System.Convert.ToString(System.Convert.ChangeType(value, System.Enum.GetUnderlyingType(value.GetType()), cultureInfo));
+                    return converted == null ? string.Empty : converted;
+                }
+            }
+            else if (value is bool) 
+            {
+                return System.Convert.ToString((bool)value, cultureInfo).ToLowerInvariant();
+            }
+            else if (value is byte[])
+            {
+                return System.Convert.ToBase64String((byte[]) value);
+            }
+            else if (value.GetType().IsArray)
+            {
+                var array = System.Linq.Enumerable.OfType<object>((System.Array) value);
+                return string.Join(",", System.Linq.Enumerable.Select(array, o => ConvertToString(o, cultureInfo)));
+            }
+        
+            var result = System.Convert.ToString(value, cultureInfo);
+            return result == null ? "" : result;
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.11.2.0 (NJsonSchema v10.4.4.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial interface IUserClient
     {
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
@@ -1502,7 +1797,7 @@ namespace Repaybl.Swag
         private string _city;
         private string _state;
         private string _country;
-        private int _zip;
+        private string _zip;
         private int _floorCount;
         private string _remarks;
         private System.Guid _userId;
@@ -1599,7 +1894,7 @@ namespace Repaybl.Swag
         }
     
         [System.Text.Json.Serialization.JsonPropertyName("zip")]
-        public int Zip
+        public string Zip
         {
             get { return _zip; }
             set
@@ -1874,6 +2169,737 @@ namespace Repaybl.Swag
                 if (_isDeleted != value)
                 {
                     _isDeleted = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+    
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) 
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Tenant : System.ComponentModel.INotifyPropertyChanged
+    {
+        private System.Guid _id;
+        private string _firstName;
+        private string _lastName;
+        private string _gender;
+        private System.DateTimeOffset? _birthDate;
+        private string _address;
+        private string _city;
+        private string _state;
+        private string _country;
+        private string _zip;
+        private int _familyMamberCount;
+        private string _phone;
+        private string _email;
+        private System.DateTimeOffset? _doj;
+        private System.Guid _userId;
+        private string _idType;
+        private string _idCardNumber;
+        private System.Collections.Generic.ICollection<System.Guid> _roomIds;
+        private System.Collections.Generic.ICollection<Room> _rooms;
+        private System.Collections.Generic.ICollection<TenantService> _tenantServices;
+        private System.Collections.Generic.ICollection<FamilyDetail> _familyDetails;
+    
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid Id
+        {
+            get { return _id; }
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("firstName")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [System.ComponentModel.DataAnnotations.StringLength(50)]
+        public string FirstName
+        {
+            get { return _firstName; }
+            set
+            {
+                if (_firstName != value)
+                {
+                    _firstName = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("lastName")]
+        [System.ComponentModel.DataAnnotations.StringLength(50)]
+        public string LastName
+        {
+            get { return _lastName; }
+            set
+            {
+                if (_lastName != value)
+                {
+                    _lastName = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("gender")]
+        [System.ComponentModel.DataAnnotations.StringLength(10)]
+        public string Gender
+        {
+            get { return _gender; }
+            set
+            {
+                if (_gender != value)
+                {
+                    _gender = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("birthDate")]
+        public System.DateTimeOffset? BirthDate
+        {
+            get { return _birthDate; }
+            set
+            {
+                if (_birthDate != value)
+                {
+                    _birthDate = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("address")]
+        public string Address
+        {
+            get { return _address; }
+            set
+            {
+                if (_address != value)
+                {
+                    _address = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("city")]
+        [System.ComponentModel.DataAnnotations.StringLength(50)]
+        public string City
+        {
+            get { return _city; }
+            set
+            {
+                if (_city != value)
+                {
+                    _city = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("state")]
+        [System.ComponentModel.DataAnnotations.StringLength(50)]
+        public string State
+        {
+            get { return _state; }
+            set
+            {
+                if (_state != value)
+                {
+                    _state = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("country")]
+        [System.ComponentModel.DataAnnotations.StringLength(50)]
+        public string Country
+        {
+            get { return _country; }
+            set
+            {
+                if (_country != value)
+                {
+                    _country = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("zip")]
+        public string Zip
+        {
+            get { return _zip; }
+            set
+            {
+                if (_zip != value)
+                {
+                    _zip = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("familyMamberCount")]
+        public int FamilyMamberCount
+        {
+            get { return _familyMamberCount; }
+            set
+            {
+                if (_familyMamberCount != value)
+                {
+                    _familyMamberCount = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("phone")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [System.ComponentModel.DataAnnotations.StringLength(15)]
+        public string Phone
+        {
+            get { return _phone; }
+            set
+            {
+                if (_phone != value)
+                {
+                    _phone = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("email")]
+        [System.ComponentModel.DataAnnotations.StringLength(255)]
+        public string Email
+        {
+            get { return _email; }
+            set
+            {
+                if (_email != value)
+                {
+                    _email = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("doj")]
+        public System.DateTimeOffset? Doj
+        {
+            get { return _doj; }
+            set
+            {
+                if (_doj != value)
+                {
+                    _doj = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("userId")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid UserId
+        {
+            get { return _userId; }
+            set
+            {
+                if (_userId != value)
+                {
+                    _userId = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("idType")]
+        public string IdType
+        {
+            get { return _idType; }
+            set
+            {
+                if (_idType != value)
+                {
+                    _idType = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("idCardNumber")]
+        public string IdCardNumber
+        {
+            get { return _idCardNumber; }
+            set
+            {
+                if (_idCardNumber != value)
+                {
+                    _idCardNumber = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("roomIds")]
+        public System.Collections.Generic.ICollection<System.Guid> RoomIds
+        {
+            get { return _roomIds; }
+            set
+            {
+                if (_roomIds != value)
+                {
+                    _roomIds = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("rooms")]
+        public System.Collections.Generic.ICollection<Room> Rooms
+        {
+            get { return _rooms; }
+            set
+            {
+                if (_rooms != value)
+                {
+                    _rooms = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("tenantServices")]
+        public System.Collections.Generic.ICollection<TenantService> TenantServices
+        {
+            get { return _tenantServices; }
+            set
+            {
+                if (_tenantServices != value)
+                {
+                    _tenantServices = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("familyDetails")]
+        public System.Collections.Generic.ICollection<FamilyDetail> FamilyDetails
+        {
+            get { return _familyDetails; }
+            set
+            {
+                if (_familyDetails != value)
+                {
+                    _familyDetails = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+    
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) 
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class TenantService : System.ComponentModel.INotifyPropertyChanged
+    {
+        private System.Guid _id;
+        private System.Guid _tenantId;
+        private System.Guid _serviceId;
+        private BillingType _billType;
+        private decimal _ratePerUnit;
+        private decimal _fixedAmount;
+        private Service _service;
+    
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid Id
+        {
+            get { return _id; }
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("tenantId")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid TenantId
+        {
+            get { return _tenantId; }
+            set
+            {
+                if (_tenantId != value)
+                {
+                    _tenantId = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("serviceId")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid ServiceId
+        {
+            get { return _serviceId; }
+            set
+            {
+                if (_serviceId != value)
+                {
+                    _serviceId = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("billType")]
+        public BillingType BillType
+        {
+            get { return _billType; }
+            set
+            {
+                if (_billType != value)
+                {
+                    _billType = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("ratePerUnit")]
+        public decimal RatePerUnit
+        {
+            get { return _ratePerUnit; }
+            set
+            {
+                if (_ratePerUnit != value)
+                {
+                    _ratePerUnit = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("fixedAmount")]
+        public decimal FixedAmount
+        {
+            get { return _fixedAmount; }
+            set
+            {
+                if (_fixedAmount != value)
+                {
+                    _fixedAmount = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("service")]
+        public Service Service
+        {
+            get { return _service; }
+            set
+            {
+                if (_service != value)
+                {
+                    _service = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+    
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) 
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum BillingType
+    {
+        Fixed = 0,
+    
+        Metered = 1,
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class Service : System.ComponentModel.INotifyPropertyChanged
+    {
+        private System.Guid _id;
+        private string _name;
+    
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid Id
+        {
+            get { return _id; }
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("name")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [System.ComponentModel.DataAnnotations.StringLength(50)]
+        public string Name
+        {
+            get { return _name; }
+            set
+            {
+                if (_name != value)
+                {
+                    _name = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+    
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected virtual void RaisePropertyChanged([System.Runtime.CompilerServices.CallerMemberName] string propertyName = null)
+        {
+            var handler = PropertyChanged;
+            if (handler != null) 
+                handler(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+        }
+    
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.4.4.0 (Newtonsoft.Json v12.0.0.0)")]
+    public partial class FamilyDetail : System.ComponentModel.INotifyPropertyChanged
+    {
+        private System.Guid _id;
+        private string _firstName;
+        private string _lastName;
+        private string _gender;
+        private System.DateTimeOffset? _birthDate;
+        private string _address;
+        private string _city;
+        private string _state;
+        private string _country;
+        private string _zip;
+        private System.Guid _tenantId;
+        private string _relationship;
+    
+        [System.Text.Json.Serialization.JsonPropertyName("id")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid Id
+        {
+            get { return _id; }
+            set
+            {
+                if (_id != value)
+                {
+                    _id = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("firstName")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [System.ComponentModel.DataAnnotations.StringLength(50)]
+        public string FirstName
+        {
+            get { return _firstName; }
+            set
+            {
+                if (_firstName != value)
+                {
+                    _firstName = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("lastName")]
+        [System.ComponentModel.DataAnnotations.StringLength(50)]
+        public string LastName
+        {
+            get { return _lastName; }
+            set
+            {
+                if (_lastName != value)
+                {
+                    _lastName = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("gender")]
+        [System.ComponentModel.DataAnnotations.StringLength(10)]
+        public string Gender
+        {
+            get { return _gender; }
+            set
+            {
+                if (_gender != value)
+                {
+                    _gender = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("birthDate")]
+        public System.DateTimeOffset? BirthDate
+        {
+            get { return _birthDate; }
+            set
+            {
+                if (_birthDate != value)
+                {
+                    _birthDate = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("address")]
+        public string Address
+        {
+            get { return _address; }
+            set
+            {
+                if (_address != value)
+                {
+                    _address = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("city")]
+        [System.ComponentModel.DataAnnotations.StringLength(50)]
+        public string City
+        {
+            get { return _city; }
+            set
+            {
+                if (_city != value)
+                {
+                    _city = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("state")]
+        [System.ComponentModel.DataAnnotations.StringLength(50)]
+        public string State
+        {
+            get { return _state; }
+            set
+            {
+                if (_state != value)
+                {
+                    _state = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("country")]
+        [System.ComponentModel.DataAnnotations.StringLength(50)]
+        public string Country
+        {
+            get { return _country; }
+            set
+            {
+                if (_country != value)
+                {
+                    _country = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("zip")]
+        public string Zip
+        {
+            get { return _zip; }
+            set
+            {
+                if (_zip != value)
+                {
+                    _zip = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("tenantId")]
+        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        public System.Guid TenantId
+        {
+            get { return _tenantId; }
+            set
+            {
+                if (_tenantId != value)
+                {
+                    _tenantId = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+    
+        [System.Text.Json.Serialization.JsonPropertyName("relationship")]
+        [System.ComponentModel.DataAnnotations.StringLength(50)]
+        public string Relationship
+        {
+            get { return _relationship; }
+            set
+            {
+                if (_relationship != value)
+                {
+                    _relationship = value;
                     RaisePropertyChanged();
                 }
             }

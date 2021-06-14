@@ -33,7 +33,7 @@ namespace RepayblApi.Models
 
         [StringLength(50)]
         public string Country { get; set; }
-        public int Zip { get; set; }
+        public string Zip { get; set; }
         public int FloorCount { get; set; }
 
         [StringLength(50)]
@@ -45,5 +45,8 @@ namespace RepayblApi.Models
         public virtual User User { get; set; }
         [InverseProperty(nameof(Room.Property))]
         public virtual ICollection<Room> Rooms { get; set; }
+
+        [InverseProperty(nameof(PropertyMedia.Property))]
+        public virtual ICollection<PropertyMedia> PropertyMedias { get; set; }
     }
 }

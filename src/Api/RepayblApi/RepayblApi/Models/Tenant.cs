@@ -37,8 +37,8 @@ namespace RepayblApi.Models
         public string State { get; set; }
         [StringLength(50)]
         public string Country { get; set; }
-        public int? Zip { get; set; }
-        public int? FamilyMamberCount { get; set; }
+        public string Zip { get; set; }
+        public int FamilyMamberCount { get; set; }
         [Required]
         [StringLength(15)]
         public string Phone { get; set; }
@@ -47,7 +47,9 @@ namespace RepayblApi.Models
         [Column(TypeName = "datetime")]
         public DateTime? DOJ { get; set; }
         public Guid UserId { get; set; }
-
+        public DateTime? DOL { get; set; }
+        public string IDType { get; set; }
+        public string IDCardNumber { get; set; }
         [ForeignKey(nameof(UserId))]
         [InverseProperty("Tenants")]
         public virtual User User { get; set; }

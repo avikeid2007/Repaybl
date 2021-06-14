@@ -46,7 +46,7 @@ namespace Repaybl.ViewModels
                             _contentFrame.Navigate(typeof(PropertiesPage));
                             break;
                         case PageTokens.Tenants:
-                            _contentFrame.Navigate(typeof(PropertiesPage));
+                            _contentFrame.Navigate(typeof(TenantPage));
                             break;
                         default:
                             break;
