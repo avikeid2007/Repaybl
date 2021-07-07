@@ -16,7 +16,6 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid>
@@ -36,20 +35,24 @@
         </Grid>
         <Grid Grid.Row="1" Margin="16">
             <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
             <TextBox
                 VerticalAlignment="Center"
                 Background="Transparent"
@@ -61,7 +64,8 @@
                 </extensions:ControlExtensions.Icon>
             </TextBox>
             <TextBox
-                Grid.Row="1"
+                Grid.Row="0"
+                Grid.Column="1"
                 VerticalAlignment="Center"
                 Background="Transparent"
                 PlaceholderText="Last Name"
@@ -72,14 +76,28 @@
                 </extensions:ControlExtensions.Icon>
             </TextBox>
             <DatePicker
-                Grid.Row="2"
+                Grid.Row="1"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                 Background="Transparent"
                 Header="Birth Date"
                 Style="{StaticResource MaterialDatePickerStyle}" />
+            <StackPanel
+                Grid.Row="1"
+                Grid.Column="1"
+                Orientation="Horizontal">
+                <RadioButton
+                    Content="Male"
+                    GroupName="RadioButtonDemo_Material_1a"
+                    Style="{StaticResource MaterialRadioButtonStyle}" />
+                <RadioButton
+                    Content="Female"
+                    GroupName="RadioButtonDemo_Material_1a"
+                    IsChecked="True"
+                    Style="{StaticResource MaterialRadioButtonStyle}" />
+            </StackPanel>
             <TextBox
-                Grid.Row="3"
+                Grid.Row="2"
                 VerticalAlignment="Center"
                 Background="Transparent"
                 PlaceholderText="Mobile"
@@ -90,7 +108,8 @@
                 </extensions:ControlExtensions.Icon>
             </TextBox>
             <TextBox
-                Grid.Row="4"
+                Grid.Row="2"
+                Grid.Column="1"
                 VerticalAlignment="Center"
                 Background="Transparent"
                 PlaceholderText="Email"
@@ -101,7 +120,7 @@
                 </extensions:ControlExtensions.Icon>
             </TextBox>
             <TextBox
-                Grid.Row="5"
+                Grid.Row="3"
                 VerticalAlignment="Center"
                 Background="Transparent"
                 PlaceholderText="No Of Occupent"
@@ -111,14 +130,9 @@
                     <SymbolIcon Symbol="People" />
                 </extensions:ControlExtensions.Icon>
             </TextBox>
-
-
-
-
-
             <TextBox
-                Grid.Row="6"
-                Margin="0,8,0,0"
+                Grid.Row="3"
+                Grid.Column="1"
                 VerticalAlignment="Center"
                 Background="Transparent"
                 PlaceholderText="Address"
@@ -130,8 +144,7 @@
             </TextBox>
 
             <TextBox
-                Grid.Row="7"
-                Margin="0,8,0,0"
+                Grid.Row="4"
                 VerticalAlignment="Center"
                 Background="Transparent"
                 PlaceholderText="City"
@@ -142,8 +155,8 @@
                 </extensions:ControlExtensions.Icon>
             </TextBox>
             <TextBox
-                Grid.Row="8"
-                Margin="0,8,0,0"
+                Grid.Row="4"
+                Grid.Column="1"
                 VerticalAlignment="Center"
                 Background="Transparent"
                 PlaceholderText="Zip"
@@ -154,8 +167,7 @@
                 </extensions:ControlExtensions.Icon>
             </TextBox>
             <ComboBox
-                Grid.Row="9"
-                Margin="0,8,0,0"
+                Grid.Row="5"
                 HorizontalAlignment="Stretch"
                 BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}"
                 BorderThickness="0,0,0,1"
@@ -171,8 +183,8 @@
 
             </ComboBox>
             <ComboBox
-                Grid.Row="10"
-                Margin="0,8,0,0"
+                Grid.Row="5"
+                Grid.Column="1"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                 BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}"
@@ -188,7 +200,7 @@
 
             </ComboBox>
 
-            <StackPanel
+            <!--<StackPanel
                 Grid.Row="6"
                 Margin="0,8,0,0"
                 HorizontalAlignment="Right"
@@ -204,101 +216,236 @@
                     Command="{x:Bind VM.SaveTenantCommand}"
                     Content="Save"
                     Style="{StaticResource MaterialContainedButtonStyle}" />
-            </StackPanel>
+            </StackPanel>-->
         </Grid>
-        <!--<material:Divider Grid.Row="2" Style="{StaticResource MaterialDividerStyle}" />-->
-        <Grid Grid.Row="3" Margin="16">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="auto" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Style="{StaticResource MaterialHeadline4}" Text="Family Mamber" />
-            <Button
-                Grid.Column="1"
-                Command="{x:Bind VM.AddRoomCommand, Mode=OneWay}"
-                IsEnabled="True">
-                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                    <SymbolIcon Symbol="Add" />
-                    <TextBlock
-                        Margin="16,0,0,0"
-                        VerticalAlignment="Center"
-                        Text="Add Family Member" />
-                </StackPanel>
-            </Button>
-        </Grid>
-        <GridView
-            Grid.Row="4"
-            Margin="16,16"
-            HorizontalAlignment="Stretch"
-            ItemsSource="{x:Bind VM.SelectedTenant.FamilyDetails, Mode=OneWay}"
-            SelectedItem="{Binding SelectedRoom, Mode=TwoWay}">
-            <GridView.ItemContainerStyle>
-                <Style TargetType="GridViewItem">
-                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
-                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                </Style>
-            </GridView.ItemContainerStyle>
-            <GridView.ItemTemplate>
-                <DataTemplate x:DataType="models:FamilyDetail">
-                    <Grid
-                        Width="480"
-                        Height="140"
-                        Padding="4,16"
-                        HorizontalAlignment="Left"
-                        BorderBrush="#ccc"
-                        BorderThickness="1"
-                        CornerRadius="6">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Image
-                            Grid.RowSpan="4"
-                            Width="100"
-                            HorizontalAlignment="Left"
-                            Source="ms-appx:///Assets/NoBuilding.png" />
-                        <TextBlock
-                            Grid.Column="1"
-                            Margin="4,4,0,0"
-                            Style="{StaticResource BaseTextBlockStyle}">
-                            <Run Text="Name: " />
-                            <Run Text="{x:Bind FirstName}" />
-                        </TextBlock>
-                        <TextBlock
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Margin="4,4,0,0"
-                            Foreground="#666"
-                            Style="{StaticResource BaseTextBlockStyle}">
-                            <Run Text="Gender:" />
-                            <Run Text="{x:Bind Gender}" />
-                        </TextBlock>
-                        <TextBlock
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            Margin="4,8,0,0"
-                            Style="{StaticResource BaseTextBlockStyle}"
-                            Text="Tenant Name :" />
-                        <TextBlock
-                            Grid.Row="3"
-                            Grid.Column="1"
-                            Margin="4,8,0,0"
-                            Style="{StaticResource BaseTextBlockStyle}">
-                            <!--<Run Text="{x:Bind Address}" />
+        <material:Divider Grid.Row="2" Style="{StaticResource MaterialDividerStyle}" />
+        <Pivot Grid.Row="3" Margin="16,4">
+            <PivotItem Header="Rooms">
+                <GridView
+                    HorizontalAlignment="Stretch"
+                    ItemsSource="{x:Bind VM.SelectedTenant.FamilyDetails, Mode=OneWay}"
+                    SelectedItem="{Binding SelectedFamily, Mode=TwoWay}">
+                    <GridView.ItemContainerStyle>
+                        <Style TargetType="GridViewItem">
+                            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </GridView.ItemContainerStyle>
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="models:FamilyDetail">
+                            <Grid
+                                Width="480"
+                                Height="140"
+                                Padding="4,16"
+                                HorizontalAlignment="Left"
+                                BorderBrush="#ccc"
+                                BorderThickness="1"
+                                CornerRadius="6">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.RowSpan="4"
+                                    Width="100"
+                                    HorizontalAlignment="Left"
+                                    Source="ms-appx:///Assets/NoBuilding.png" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="4,4,0,0"
+                                    Style="{StaticResource BaseTextBlockStyle}">
+                                    <Run Text="Name: " />
+                                    <Run Text="{x:Bind FirstName}" />
+                                </TextBlock>
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Margin="4,4,0,0"
+                                    Foreground="#666"
+                                    Style="{StaticResource BaseTextBlockStyle}">
+                                    <Run Text="Gender:" />
+                                    <Run Text="{x:Bind Gender}" />
+                                </TextBlock>
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Margin="4,8,0,0"
+                                    Style="{StaticResource BaseTextBlockStyle}"
+                                    Text="Tenant Name :" />
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Margin="4,8,0,0"
+                                    Style="{StaticResource BaseTextBlockStyle}">
+                                    <!--<Run Text="{x:Bind Address}" />
                             <Run Text="{x:Bind City}" />
                             <Run Text="{x:Bind State}" />
                             <Run Text="{x:Bind Country}" />
                             <Run Text="{x:Bind Zip}" />-->
-                        </TextBlock>
-                    </Grid>
-                </DataTemplate>
-            </GridView.ItemTemplate>
-        </GridView>
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+
+            </PivotItem>
+            <PivotItem Header="Services">
+                <GridView
+                    HorizontalAlignment="Stretch"
+                    ItemsSource="{x:Bind VM.SelectedTenant.FamilyDetails, Mode=OneWay}"
+                    SelectedItem="{Binding SelectedFamily, Mode=TwoWay}">
+                    <GridView.ItemContainerStyle>
+                        <Style TargetType="GridViewItem">
+                            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </GridView.ItemContainerStyle>
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="models:FamilyDetail">
+                            <Grid
+                                Width="480"
+                                Height="140"
+                                Padding="4,16"
+                                HorizontalAlignment="Left"
+                                BorderBrush="#ccc"
+                                BorderThickness="1"
+                                CornerRadius="6">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.RowSpan="4"
+                                    Width="100"
+                                    HorizontalAlignment="Left"
+                                    Source="ms-appx:///Assets/NoBuilding.png" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="4,4,0,0"
+                                    Style="{StaticResource BaseTextBlockStyle}">
+                                    <Run Text="Name: " />
+                                    <Run Text="{x:Bind FirstName}" />
+                                </TextBlock>
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Margin="4,4,0,0"
+                                    Foreground="#666"
+                                    Style="{StaticResource BaseTextBlockStyle}">
+                                    <Run Text="Gender:" />
+                                    <Run Text="{x:Bind Gender}" />
+                                </TextBlock>
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Margin="4,8,0,0"
+                                    Style="{StaticResource BaseTextBlockStyle}"
+                                    Text="Tenant Name :" />
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Margin="4,8,0,0"
+                                    Style="{StaticResource BaseTextBlockStyle}">
+                                    <!--<Run Text="{x:Bind Address}" />
+                            <Run Text="{x:Bind City}" />
+                            <Run Text="{x:Bind State}" />
+                            <Run Text="{x:Bind Country}" />
+                            <Run Text="{x:Bind Zip}" />-->
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+
+            </PivotItem>
+            <PivotItem Header="Family members">
+                <GridView
+                    HorizontalAlignment="Stretch"
+                    ItemsSource="{x:Bind VM.SelectedTenant.FamilyDetails, Mode=OneWay}"
+                    SelectedItem="{Binding SelectedFamily, Mode=TwoWay}">
+                    <GridView.ItemContainerStyle>
+                        <Style TargetType="GridViewItem">
+                            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        </Style>
+                    </GridView.ItemContainerStyle>
+                    <GridView.ItemTemplate>
+                        <DataTemplate x:DataType="models:FamilyDetail">
+                            <Grid
+                                Width="480"
+                                Height="140"
+                                Padding="4,16"
+                                HorizontalAlignment="Left"
+                                BorderBrush="#ccc"
+                                BorderThickness="1"
+                                CornerRadius="6">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.RowSpan="4"
+                                    Width="100"
+                                    HorizontalAlignment="Left"
+                                    Source="ms-appx:///Assets/NoBuilding.png" />
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Margin="4,4,0,0"
+                                    Style="{StaticResource BaseTextBlockStyle}">
+                                    <Run Text="Name: " />
+                                    <Run Text="{x:Bind FirstName}" />
+                                </TextBlock>
+                                <TextBlock
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Margin="4,4,0,0"
+                                    Foreground="#666"
+                                    Style="{StaticResource BaseTextBlockStyle}">
+                                    <Run Text="Gender:" />
+                                    <Run Text="{x:Bind Gender}" />
+                                </TextBlock>
+                                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    Margin="4,8,0,0"
+                                    Style="{StaticResource BaseTextBlockStyle}"
+                                    Text="Tenant Name :" />
+                                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    Margin="4,8,0,0"
+                                    Style="{StaticResource BaseTextBlockStyle}">
+                                    <!--<Run Text="{x:Bind Address}" />
+                            <Run Text="{x:Bind City}" />
+                            <Run Text="{x:Bind State}" />
+                            <Run Text="{x:Bind Country}" />
+                            <Run Text="{x:Bind Zip}" />-->
+                                </TextBlock>
+                            </Grid>
+                        </DataTemplate>
+                    </GridView.ItemTemplate>
+                </GridView>
+
+            </PivotItem>
+        </Pivot>
+
     </Grid>
 </Page>
