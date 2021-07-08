@@ -20,6 +20,10 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Constants\Globals.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Constants\PageTokens.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Dialogs\AddTenantRoomDialog.xaml.cs">
+      <DependentUpon>AddTenantRoomDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Dialogs\ViewModels\AddTenantRoomViewModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Helpers\LocalSettingHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
@@ -38,6 +42,7 @@
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)Services\Abstractions\IDropDownService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DropDownService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\PopupService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)TenantDetailPage.xaml.cs">
       <DependentUpon>TenantDetailPage.xaml</DependentUpon>
     </Compile>
@@ -53,6 +58,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\TenantViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Dialogs\AddTenantRoomDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="$(MSBuildThisFileDirectory)HomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

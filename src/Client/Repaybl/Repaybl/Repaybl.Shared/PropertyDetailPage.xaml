@@ -133,19 +133,31 @@
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
 
-                <Button
-                    Command="{x:Bind VM.ResetPropertyCommand}"
-                    Content="Reset"
-                    Style="{StaticResource MaterialContainedButtonStyle}" />
+                <Button Command="{x:Bind VM.ResetPropertyCommand}" Style="{StaticResource MaterialContainedButtonStyle}">
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <SymbolIcon Symbol="Refresh" />
+                        <TextBlock
+                            Margin="16,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="Reset" />
+                    </StackPanel>
+                </Button>
                 <Button
                     Margin="8,0,0,0"
                     HorizontalAlignment="Right"
                     Command="{x:Bind VM.SavePropertyCommand}"
-                    Content="Save"
-                    Style="{StaticResource MaterialContainedButtonStyle}" />
+                    Style="{StaticResource MaterialContainedButtonStyle}">
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <SymbolIcon Symbol="Save" />
+                        <TextBlock
+                            Margin="16,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="Save" />
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </Grid>
-        <!--<material:Divider Grid.Row="2" Style="{StaticResource MaterialDividerStyle}" />-->
+        <material:Divider Grid.Row="2" Style="{StaticResource MaterialDividerStyle}" />
         <Grid Grid.Row="3" Margin="16">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
@@ -155,7 +167,8 @@
             <Button
                 Grid.Column="1"
                 Command="{x:Bind VM.AddRoomCommand, Mode=OneWay}"
-                IsEnabled="True">
+                IsEnabled="True"
+                Style="{StaticResource MaterialContainedButtonStyle}">
                 <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                     <SymbolIcon Symbol="Add" />
                     <TextBlock

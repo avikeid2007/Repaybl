@@ -24,7 +24,7 @@ namespace RepayblApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<DTOs.Tenant>> GetMany(Guid? userID = null, string name = null, bool isIncludeServices = false, bool isIncludeRooms = false, bool isIncludeFamily = false)
         {
-            IQueryable<Tenant> query = Context.Tenants;
+            IQueryable<Tenant> query = Context.Tenants.Include(x => x.TenantServices).Include(x => x.Rooms);
             if (userID != null)
             {
                 query = query.Where(x => x.UserId == userID);

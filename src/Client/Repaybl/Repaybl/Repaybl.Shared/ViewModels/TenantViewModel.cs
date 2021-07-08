@@ -31,7 +31,7 @@ namespace Repaybl.ViewModels
                 _selectedTenant = value;
                 if (value != null)
                 {
-                    _contentFrame.Navigate(typeof(PropertyDetailPage), value);
+                    _contentFrame.Navigate(typeof(TenantDetailPage), value);
                 }
                 OnPropertyChanged();
             }

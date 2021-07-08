@@ -81,6 +81,7 @@
                 VerticalAlignment="Center"
                 Background="Transparent"
                 Header="Birth Date"
+                SelectedDate="{x:Bind VM.SelectedTenant.BirthDate, Mode=TwoWay}"
                 Style="{StaticResource MaterialDatePickerStyle}" />
             <StackPanel
                 Grid.Row="1"
@@ -199,9 +200,36 @@
                 </extensions:ControlExtensions.Icon>-->
 
             </ComboBox>
-
-            <!--<StackPanel
+            <ComboBox
                 Grid.Row="6"
+                HorizontalAlignment="Stretch"
+                BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}"
+                BorderThickness="0,0,0,1"
+                CornerRadius="4"
+                Header="ID Types"
+                ItemsSource="{x:Bind VM.IDTypes, Mode=OneWay}"
+                PlaceholderText="Select"
+                SelectedValue="{Binding SelectedId, Mode=TwoWay}">
+                <!--<extensions:ControlExtensions.Icon>
+                    <SymbolIcon Symbol="Map" />
+                </extensions:ControlExtensions.Icon>-->
+
+            </ComboBox>
+            <TextBox
+                Grid.Row="6"
+                Grid.Column="1"
+                VerticalAlignment="Center"
+                Background="Transparent"
+                PlaceholderText="Id Card Number"
+                Style="{StaticResource MaterialFilledTextBoxStyle}"
+                Text="{x:Bind VM.SelectedTenant.IdCardNumber, Mode=TwoWay}">
+                <extensions:ControlExtensions.Icon>
+                    <SymbolIcon Symbol="MapDrive" />
+                </extensions:ControlExtensions.Icon>
+            </TextBox>
+            <StackPanel
+                Grid.Row="7"
+                Grid.ColumnSpan="2"
                 Margin="0,8,0,0"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
@@ -216,15 +244,15 @@
                     Command="{x:Bind VM.SaveTenantCommand}"
                     Content="Save"
                     Style="{StaticResource MaterialContainedButtonStyle}" />
-            </StackPanel>-->
+            </StackPanel>
         </Grid>
         <material:Divider Grid.Row="2" Style="{StaticResource MaterialDividerStyle}" />
-        <Pivot Grid.Row="3" Margin="16,4">
+        <Pivot
+            Grid.Row="3"
+            Margin="16,4"
+            IsEnabled="{x:Bind VM.IsExistUser}">
             <PivotItem Header="Rooms">
-                <GridView
-                    HorizontalAlignment="Stretch"
-                    ItemsSource="{x:Bind VM.SelectedTenant.FamilyDetails, Mode=OneWay}"
-                    SelectedItem="{Binding SelectedFamily, Mode=TwoWay}">
+                <GridView HorizontalAlignment="Stretch" ItemsSource="{x:Bind VM.SelectedTenant.Rooms, Mode=OneWay}">
                     <GridView.ItemContainerStyle>
                         <Style TargetType="GridViewItem">
                             <Setter Property="VerticalContentAlignment" Value="Stretch" />
@@ -232,7 +260,7 @@
                         </Style>
                     </GridView.ItemContainerStyle>
                     <GridView.ItemTemplate>
-                        <DataTemplate x:DataType="models:FamilyDetail">
+                        <DataTemplate x:DataType="models:Room">
                             <Grid
                                 Width="480"
                                 Height="140"
@@ -261,7 +289,7 @@
                                     Margin="4,4,0,0"
                                     Style="{StaticResource BaseTextBlockStyle}">
                                     <Run Text="Name: " />
-                                    <Run Text="{x:Bind FirstName}" />
+                                    <Run Text="{x:Bind RoomNo}" />
                                 </TextBlock>
                                 <TextBlock
                                     Grid.Row="1"
@@ -270,7 +298,7 @@
                                     Foreground="#666"
                                     Style="{StaticResource BaseTextBlockStyle}">
                                     <Run Text="Gender:" />
-                                    <Run Text="{x:Bind Gender}" />
+                                    <Run Text="{x:Bind RoomFloorNo}" />
                                 </TextBlock>
                                 <TextBlock
                                     Grid.Row="2"
@@ -445,6 +473,21 @@
                 </GridView>
 
             </PivotItem>
+            <Pivot.RightHeader>
+                <Button
+                    Grid.Column="1"
+                    Command="{x:Bind VM.AddRoomCommand, Mode=OneWay}"
+                    IsEnabled="True"
+                    Style="{StaticResource MaterialContainedButtonStyle}">
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                        <SymbolIcon Symbol="Add" />
+                        <TextBlock
+                            Margin="16,0,0,0"
+                            VerticalAlignment="Center"
+                            Text="Add New Room" />
+                    </StackPanel>
+                </Button>
+            </Pivot.RightHeader>
         </Pivot>
 
     </Grid>

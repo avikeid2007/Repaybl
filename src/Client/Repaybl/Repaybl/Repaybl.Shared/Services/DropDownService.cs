@@ -22,5 +22,9 @@ namespace Repaybl.Services
         {
             return await _listClient.GetStatesAsync(id);
         }
+        public async Task<IEnumerable<string>> GetIDTypesAsync()
+        {
+            return await _listClient.GetIDTypesAsync();
+        }
     }
 }

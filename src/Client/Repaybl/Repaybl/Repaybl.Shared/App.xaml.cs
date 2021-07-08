@@ -59,6 +59,7 @@ namespace Repaybl
             serviceCollection.AddTransient<IListClient, ListClient>();
             serviceCollection.AddTransient<ITenantClient, TenantClient>();
             serviceCollection.AddTransient<IDropDownService, DropDownService>();
+            serviceCollection.AddTransient<IPopupService, PopupService>();
             // Build the IServiceProvider and return it
             return serviceCollection.BuildServiceProvider();
         }

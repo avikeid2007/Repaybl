@@ -22,20 +22,24 @@ namespace Repaybl.ViewModels
         private ITenantClient _tenantClient;
         private IDropDownService _dropDownService;
         internal Frame _contentFrame;
+        private IPopupService _popupService;
+        private IPropertyClient _propertyClient;
         public ICommand SaveTenantCommand => new AsyncCommand(OnSaveTenantCommandAsync);
         public ICommand ResetTenantCommand => new AsyncCommand(OnResetTenantCommandAsync);
-        public ICommand AddRoomCommand => new DelegateCommand(OnAddRoomCommand);
+        public ICommand AddRoomCommand => new AsyncCommand(OnAddRoomCommandAsync);
 
-        private void OnAddRoomCommand()
+        private async Task OnAddRoomCommandAsync()
         {
-            _contentFrame.Navigate(typeof(RoomPage), SelectedTenant.Id);
+            await _popupService.AddTenantRoomDialogAsync(SelectedTenant.Id);
         }
 
-        public TenantDetailViewModel(ITenantClient tenantClient, IDropDownService dropDownService)
+        public TenantDetailViewModel(ITenantClient tenantClient, IPropertyClient propertyClient, IDropDownService dropDownService, IPopupService popupService)
         {
             _tenantClient = tenantClient;
             _dropDownService = dropDownService;
-            SelectedTenant = new Tenant() { UserId = Globals.CurrentUserId, Id = Guid.NewGuid() };
+            _popupService = popupService;
+            _propertyClient = propertyClient;
+            SelectedTenant = new Tenant() { UserId = Globals.CurrentUserId, Id = Guid.NewGuid(), Doj = DateTimeOffset.Now };
             _ = FillDropdownAsync();
         }
         public void SetParameter(Tenant property)
@@ -43,6 +47,7 @@ namespace Repaybl.ViewModels
             if (property != null)
             {
                 SelectedTenant = property;
+                IsExistUser = true;
             }
         }
         private async Task FillStatesDropdownAsync(Country value)
@@ -53,8 +58,14 @@ namespace Repaybl.ViewModels
                 SelectedState = AllStates?.FirstOrDefault(x => x.Name.Equals(SelectedTenant.State));
             }
         }
+        private async Task FillRoomsAsync()
+        {
+            if (IsExistUser)
+                await _propertyClient.GetRoomsAsync(tenantId: SelectedTenant.Id);
+        }
         private async Task FillDropdownAsync()
         {
+            IDTypes = new List<string>(await _dropDownService.GetIDTypesAsync());
             AllCountries = new List<Country>(await _dropDownService.GetAllCountriesAsync());
             if (!string.IsNullOrEmpty(SelectedTenant?.Country))
             {
@@ -80,6 +91,36 @@ namespace Repaybl.ViewModels
         private List<State> _allStates;
         private Country _selectedCountry;
         private State _selectedState;
+        private List<string> _iDTypes;
+        private string _selectedId;
+        private bool _isExistUser;
+        public bool IsExistUser
+        {
+            get { return _isExistUser; }
+            set
+            {
+                _isExistUser = value;
+                OnPropertyChanged();
+            }
+        }
+        public List<string> IDTypes
+        {
+            get { return _iDTypes; }
+            set
+            {
+                _iDTypes = value;
+                OnPropertyChanged();
+            }
+        }
+        public string SelectedId
+        {
+            get { return _selectedId; }
+            set
+            {
+                _selectedId = value;
+                OnPropertyChanged();
+            }
+        }
         public Country SelectedCountry
         {
             get { return _selectedCountry; }

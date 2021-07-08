@@ -88,7 +88,7 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="52" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <PersonPicture
@@ -100,8 +100,7 @@
                         <TextBlock
                             Grid.Column="1"
                             Margin="16,4,0,0"
-                            Style="{StaticResource BaseTextBlockStyle}"
-                            Text="{x:Bind FirstName}">
+                            Style="{StaticResource BaseTextBlockStyle}">
                             <Run Text="{x:Bind FirstName}" />
                             <Run Text="{x:Bind LastName}" />
                         </TextBlock>
@@ -114,17 +113,19 @@
                             <Run Text="No of Occupants:" />
                             <Run Text="{x:Bind FamilyMamberCount}" />
                         </TextBlock>
-                        <TextBlock
+                        <!--<TextBlock
                             Grid.Row="2"
                             Grid.Column="0"
                             Margin="0,8,0,0"
                             Style="{StaticResource BaseTextBlockStyle}"
-                            Text="Address :" />
+                            Text="Address :" />-->
                         <TextBlock
-                            Grid.Row="3"
+                            Grid.Row="2"
                             Grid.Column="0"
+                            Grid.ColumnSpan="2"
                             Margin="0,8,0,0"
                             Style="{StaticResource BaseTextBlockStyle}">
+                            <Run Text="Address :" />
                             <Run Text="{x:Bind Address}" />
                             <Run Text="{x:Bind City}" />
                             <Run Text="{x:Bind State}" />
