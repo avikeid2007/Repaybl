@@ -24,7 +24,7 @@ namespace RepayblApi.Models
         [Required]
         [StringLength(10)]
         public string RoomNo { get; set; }
-        public int? RoomFloorNo { get; set; }
+        public string RoomFloorNo { get; set; }
         public Guid PropertyId { get; set; }
         public Guid? CurrentTenantId { get; set; }
         //[Column(TypeName = "numeric(8, 2)")]
@@ -43,5 +43,7 @@ namespace RepayblApi.Models
         public virtual Property Property { get; set; }
         [InverseProperty(nameof(RentTransaction.Room))]
         public virtual ICollection<RentTransaction> RentTransactions { get; set; }
+        [InverseProperty(nameof(PropertyMedia.Room))]
+        public virtual ICollection<PropertyMedia> PropertyMedias { get; set; }
     }
 }

@@ -8,9 +8,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="BasicMvvm" Version="1.0.0" />
-    <PackageReference Include="Uno.Material" Version="1.0.0-dev.778" />
-    <PackageReference Include="Uno.UI.Skia.Wpf" Version="3.8.0-dev.461" />
-    <PackageReference Include="Uno.UI.RemoteControl" Version="3.8.0-dev.461" Condition="'$(Configuration)'=='Debug'" />
+    <PackageReference Include="Uno.Material" Version="1.0.0-dev.784" />
+    <PackageReference Include="Uno.UI.Skia.Wpf" Version="3.9.0-dev.197" />
+    <PackageReference Include="Uno.UI.RemoteControl" Version="3.9.0-dev.197" Condition="'$(Configuration)'=='Debug'" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Fonts\uno-fluentui-assets.ttf" />

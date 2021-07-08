@@ -16,6 +16,7 @@
         x:Name="NavView"
         Background="Transparent"
         IsBackButtonVisible="Collapsed"
+        IsBackEnabled="False"
         IsSettingsVisible="True"
         IsTabStop="False"
         PaneDisplayMode="Auto"

@@ -5,11 +5,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-#nullable disable
+using RepayblApi.Models;
 
-namespace RepayblApi.Models
+namespace RepayblApi.DTOs
 {
-    public partial class Service : AuditorBase
+    public partial class Service
     {
         [Key]
         public Guid Id { get; set; }
@@ -17,7 +17,5 @@ namespace RepayblApi.Models
         [StringLength(50)]
         public string Name { get; set; }
 
-        [InverseProperty(nameof(TenantService.Service))]
-        public virtual ICollection<TenantService> TenantServices { get; set; }
     }
 }

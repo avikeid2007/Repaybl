@@ -22,7 +22,7 @@ namespace RepayblApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<DTOs.Property>> GetMany(Guid? userID = null, string name = null, bool isIncludeRooms = false)
         {
-            IQueryable<Property> query = Context.Properties;
+            IQueryable<Models.Property> query = Context.Properties;
             if (userID != null)
             {
                 query = query.Where(x => x.UserId == userID);
@@ -57,7 +57,7 @@ namespace RepayblApi.Controllers
                 var dbobj = await Context.Properties.SingleOrDefaultAsync(x => x.Id == property.Id);
                 if (dbobj == null)
                 {
-                    dbobj = ConvertModels<Property, DTOs.Property>(property);
+                    dbobj = ConvertModels<Models.Property, DTOs.Property>(property);
                     MapCreated(dbobj);
                     await Context.Properties.AddAsync(dbobj);
                     await Context.SaveChangesAsync();
@@ -74,13 +74,18 @@ namespace RepayblApi.Controllers
             }
             return BadRequest();
         }
-        [HttpGet("Rooms")]
-        public ActionResult<IEnumerable<DTOs.Room>> GetRooms(Guid? propertyId = null, string roomNo = null)
+
+        [HttpGet("Room")]
+        public ActionResult<IEnumerable<DTOs.Room>> GetRooms(Guid? propertyId = null, string roomNo = null, Guid? tenantId = null)
         {
-            IQueryable<Room> query = Context.Rooms;
+            IQueryable<Models.Room> query = Context.Rooms;
             if (propertyId != null)
             {
                 query = query.Where(x => x.PropertyId == propertyId);
+            }
+            if (tenantId != null)
+            {
+                query = query.Where(x => x.CurrentTenantId == tenantId);
             }
             if (!string.IsNullOrEmpty(roomNo))
             {
@@ -88,5 +93,51 @@ namespace RepayblApi.Controllers
             }
             return query.AsEnumerable().Select(ConvertModels<DTOs.Room, Models.Room>).ToList();
         }
+        [HttpPost("Room")]
+        public async Task<ActionResult> SaveRoomAsync(DTOs.Room room)
+        {
+            if (room != null)
+            {
+                var dbobj = await Context.Rooms.SingleOrDefaultAsync(x => x.Id == room.Id);
+                if (dbobj == null)
+                {
+                    dbobj = ConvertModels<Models.Room, DTOs.Room>(room);
+                    MapCreated(dbobj);
+                    await Context.Rooms.AddAsync(dbobj);
+                    await Context.SaveChangesAsync();
+                    return Ok();
+                }
+                else
+                {
+                    MapModels(room, dbobj);
+                    MapModified(dbobj);
+                    Context.Rooms.Update(dbobj);
+                    await Context.SaveChangesAsync();
+                    return Ok();
+                }
+            }
+            return BadRequest();
+        }
+        [HttpPost("UpdateRoom")]
+        public async Task<ActionResult> UpdateRoomAsync(IEnumerable<DTOs.Room> rooms)
+        {
+            if (rooms?.Count() > 0)
+            {
+                foreach (var room in rooms)
+                {
+                    var dbobj = await Context.Rooms.SingleOrDefaultAsync(x => x.Id == room.Id);
+                    if (dbobj != null)
+                    {
+                        MapModels(room, dbobj);
+                        MapModified(dbobj);
+                        Context.Rooms.Update(dbobj);
+                        await Context.SaveChangesAsync();
+                    }
+                }
+                return Ok();
+            }
+            return BadRequest();
+        }
+
     }
 }

@@ -4,11 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-using RepayblApi.Models;
-
 namespace RepayblApi.DTOs
 {
-    public partial class Room : AuditorBase
+    public partial class Room
     {
 
         [Key]

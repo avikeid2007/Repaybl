@@ -36,5 +36,14 @@ namespace RepayblApi.Controllers
             return await _geoClient.GetStatesAsync(GeoBaseClient.ApiKey, id);
 
         }
+        [HttpGet("IDTypes")]
+        public IEnumerable<string> GetIDTypes()
+        {
+            yield return "Aadhar Card";
+            yield return "Voter Id Card";
+            yield return "Pan Card";
+            yield return "Driving License";
+
+        }
     }
 }

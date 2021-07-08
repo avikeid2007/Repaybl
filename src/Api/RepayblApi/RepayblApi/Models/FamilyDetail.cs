@@ -30,7 +30,7 @@ namespace RepayblApi.Models
         public string State { get; set; }
         [StringLength(50)]
         public string Country { get; set; }
-        public int? Zip { get; set; }
+        public string Zip { get; set; }
         public Guid TenantId { get; set; }
         [StringLength(50)]
         public string Relationship { get; set; }

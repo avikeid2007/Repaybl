@@ -16,70 +16,111 @@ using Windows.UI.Xaml.Controls;
 
 namespace Repaybl.ViewModels
 {
-    class PropertyDetailViewModel : BindableBase
+    class TenantDetailViewModel : BindableBase
     {
 
-        private IPropertyClient _propertyClient;
+        private ITenantClient _tenantClient;
         private IDropDownService _dropDownService;
         internal Frame _contentFrame;
-        public ICommand SavePropertyCommand => new AsyncCommand(OnSavePropertyCommandAsync);
-        public ICommand ResetPropertyCommand => new AsyncCommand(OnResetPropertyCommandAsync);
-        public ICommand AddRoomCommand => new DelegateCommand(OnAddRoomCommand);
+        private IPopupService _popupService;
+        private IPropertyClient _propertyClient;
+        public ICommand SaveTenantCommand => new AsyncCommand(OnSaveTenantCommandAsync);
+        public ICommand ResetTenantCommand => new AsyncCommand(OnResetTenantCommandAsync);
+        public ICommand AddRoomCommand => new AsyncCommand(OnAddRoomCommandAsync);
 
-        private void OnAddRoomCommand()
+        private async Task OnAddRoomCommandAsync()
         {
-            _contentFrame.Navigate(typeof(RoomPage), SelectedProperty.Id);
+            await _popupService.AddTenantRoomDialogAsync(SelectedTenant.Id);
         }
 
-        public PropertyDetailViewModel(IPropertyClient propertyClient, IDropDownService dropDownService)
+        public TenantDetailViewModel(ITenantClient tenantClient, IPropertyClient propertyClient, IDropDownService dropDownService, IPopupService popupService)
         {
-            _propertyClient = propertyClient;
+            _tenantClient = tenantClient;
             _dropDownService = dropDownService;
-            SelectedProperty = new Property() { UserId = Globals.CurrentUserId, Id = Guid.NewGuid() };
+            _popupService = popupService;
+            _propertyClient = propertyClient;
+            SelectedTenant = new Tenant() { UserId = Globals.CurrentUserId, Id = Guid.NewGuid(), Doj = DateTimeOffset.Now };
             _ = FillDropdownAsync();
         }
-        public void SetParameter(Property property)
+        public void SetParameter(Tenant property)
         {
             if (property != null)
             {
-                SelectedProperty = property;
+                SelectedTenant = property;
+                IsExistUser = true;
             }
         }
         private async Task FillStatesDropdownAsync(Country value)
         {
             AllStates = new List<State>(await _dropDownService.GetAllStatesAsync(value.Id));
-            if (!string.IsNullOrEmpty(SelectedProperty?.State))
+            if (!string.IsNullOrEmpty(SelectedTenant?.State))
             {
-                SelectedState = AllStates?.FirstOrDefault(x => x.Name.Equals(SelectedProperty.State));
+                SelectedState = AllStates?.FirstOrDefault(x => x.Name.Equals(SelectedTenant.State));
             }
+        }
+        private async Task FillRoomsAsync()
+        {
+            if (IsExistUser)
+                await _propertyClient.GetRoomsAsync(tenantId: SelectedTenant.Id);
         }
         private async Task FillDropdownAsync()
         {
+            IDTypes = new List<string>(await _dropDownService.GetIDTypesAsync());
             AllCountries = new List<Country>(await _dropDownService.GetAllCountriesAsync());
-            if (!string.IsNullOrEmpty(SelectedProperty?.Country))
+            if (!string.IsNullOrEmpty(SelectedTenant?.Country))
             {
-                SelectedCountry = AllCountries?.FirstOrDefault(x => x.Name.Equals(SelectedProperty.Country));
+                SelectedCountry = AllCountries?.FirstOrDefault(x => x.Name.Equals(SelectedTenant.Country));
             }
         }
 
-        private async Task OnSavePropertyCommandAsync()
+        private async Task OnSaveTenantCommandAsync()
         {
-            if (!string.IsNullOrEmpty(SelectedProperty?.Name))
+            if (!string.IsNullOrEmpty(SelectedTenant?.FirstName))
             {
-                await _propertyClient.SavePropertyAsync(SelectedProperty);
+                await _tenantClient.SaveTenantAsync(SelectedTenant);
             }
         }
-        private async Task OnResetPropertyCommandAsync()
+        private async Task OnResetTenantCommandAsync()
         {
             throw new NotImplementedException();
         }
-        private Property _selectedProperty;
+        private Tenant _selectedTenant;
         private Room _selectedRoom;
         private ObservableCollection<Room> _allRoom;
         private List<Country> _allCountries;
         private List<State> _allStates;
         private Country _selectedCountry;
         private State _selectedState;
+        private List<string> _iDTypes;
+        private string _selectedId;
+        private bool _isExistUser;
+        public bool IsExistUser
+        {
+            get { return _isExistUser; }
+            set
+            {
+                _isExistUser = value;
+                OnPropertyChanged();
+            }
+        }
+        public List<string> IDTypes
+        {
+            get { return _iDTypes; }
+            set
+            {
+                _iDTypes = value;
+                OnPropertyChanged();
+            }
+        }
+        public string SelectedId
+        {
+            get { return _selectedId; }
+            set
+            {
+                _selectedId = value;
+                OnPropertyChanged();
+            }
+        }
         public Country SelectedCountry
         {
             get { return _selectedCountry; }
@@ -90,7 +131,7 @@ namespace Repaybl.ViewModels
                     _selectedCountry = value;
                     if (value != null)
                     {
-                        SelectedProperty.Country = value.Name;
+                        SelectedTenant.Country = value.Name;
                         _ = FillStatesDropdownAsync(value);
                     }
                     OnPropertyChanged();
@@ -107,7 +148,7 @@ namespace Repaybl.ViewModels
                 if (_selectedState != value)
                 {
                     _selectedState = value;
-                    SelectedProperty.State = value.Name;
+                    SelectedTenant.State = value.Name;
                     OnPropertyChanged();
                 }
             }
@@ -130,14 +171,14 @@ namespace Repaybl.ViewModels
                 OnPropertyChanged();
             }
         }
-        public Property SelectedProperty
+        public Tenant SelectedTenant
         {
-            get { return _selectedProperty; }
+            get { return _selectedTenant; }
             set
             {
-                if (_selectedProperty != value)
+                if (_selectedTenant != value)
                 {
-                    _selectedProperty = value;
+                    _selectedTenant = value;
                     OnPropertyChanged();
                 }
             }
@@ -148,10 +189,10 @@ namespace Repaybl.ViewModels
             set
             {
                 _selectedRoom = value;
-                if (value != null)
-                {
-                    _contentFrame.Navigate(typeof(RoomPage), value);
-                }
+                //if (value != null)
+                //{
+                //    _contentFrame.Navigate(typeof(RoomPage), value);
+                //}
                 OnPropertyChanged();
             }
         }
@@ -166,3 +207,5 @@ namespace Repaybl.ViewModels
         }
     }
 }
+
+

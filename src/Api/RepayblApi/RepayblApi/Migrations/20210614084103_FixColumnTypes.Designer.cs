@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepayblApi.Models;
 
 namespace RepayblApi.Migrations
 {
     [DbContext(typeof(RepayblContext))]
-    partial class RepayblContextModelSnapshot : ModelSnapshot
+    [Migration("20210614084103_FixColumnTypes")]
+    partial class FixColumnTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,68 +160,6 @@ namespace RepayblApi.Migrations
                     b.HasIndex(new[] { "UserId" }, "fkIdx_151");
 
                     b.ToTable("Properties");
-                });
-
-            modelBuilder.Entity("RepayblApi.Models.PropertyMedia", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FileExtension")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("MimeType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<DateTimeOffset?>("Modified")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("ModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<byte[]>("Payload")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<Guid?>("PropertyId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("RoomId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset?>("SubmitDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Title")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PropertyId");
-
-                    b.HasIndex("RoomId");
-
-                    b.ToTable("PropertyMedia");
                 });
 
             modelBuilder.Entity("RepayblApi.Models.RentTransaction", b =>
@@ -440,12 +380,6 @@ namespace RepayblApi.Migrations
                         .IsUnicode(false)
                         .HasColumnType("varchar(10)");
 
-                    b.Property<string>("IDCardNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("IDType")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -526,9 +460,6 @@ namespace RepayblApi.Migrations
                     b.Property<byte[]>("Payload")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
-
-                    b.Property<DateTimeOffset?>("SubmitDate")
-                        .HasColumnType("datetimeoffset");
 
                     b.Property<Guid>("TenantId")
                         .HasColumnType("uniqueidentifier");
@@ -744,21 +675,6 @@ namespace RepayblApi.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("RepayblApi.Models.PropertyMedia", b =>
-                {
-                    b.HasOne("RepayblApi.Models.Property", "Property")
-                        .WithMany("PropertyMedias")
-                        .HasForeignKey("PropertyId");
-
-                    b.HasOne("RepayblApi.Models.Room", "Room")
-                        .WithMany("PropertyMedias")
-                        .HasForeignKey("RoomId");
-
-                    b.Navigation("Property");
-
-                    b.Navigation("Room");
-                });
-
             modelBuilder.Entity("RepayblApi.Models.RentTransaction", b =>
                 {
                     b.HasOne("RepayblApi.Models.Tenant", "PaidByNavigation")
@@ -849,15 +765,11 @@ namespace RepayblApi.Migrations
 
             modelBuilder.Entity("RepayblApi.Models.Property", b =>
                 {
-                    b.Navigation("PropertyMedias");
-
                     b.Navigation("Rooms");
                 });
 
             modelBuilder.Entity("RepayblApi.Models.Room", b =>
                 {
-                    b.Navigation("PropertyMedias");
-
                     b.Navigation("RentTransactions");
                 });
 
