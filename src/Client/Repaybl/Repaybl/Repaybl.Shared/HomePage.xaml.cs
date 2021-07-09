@@ -2,6 +2,7 @@
 
 using Repaybl.ViewModels;
 
+using Windows.UI.Core;
 using Windows.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
@@ -20,6 +21,15 @@ namespace Repaybl
             // Request an instance of the ViewModel and set it to the DataContext
             VM = (HomeViewModel)ActivatorUtilities.GetServiceOrCreateInstance(container, typeof(HomeViewModel));
             DataContext = VM;
+            SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            SystemNavigationManager.GetForCurrentView().BackRequested += (s, es) =>
+            {
+                if (ContentFrame.CanGoBack)
+                {
+                    ContentFrame.GoBack();
+                }
+                // Handle the Back pressed
+            };
         }
 
 

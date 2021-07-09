@@ -57,6 +57,7 @@ namespace Repaybl.ViewModels
                     if (token != null)
                     {
                         LocalSettingHelper.MarkContainer("token", token);
+                        BaseClient.SetBearerToken(token);
                         _contentFrame.Navigate(typeof(HomePage));
                     }
                 }
