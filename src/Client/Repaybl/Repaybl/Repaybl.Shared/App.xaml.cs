@@ -25,10 +25,10 @@ namespace Repaybl
     public sealed partial class App : Application
     {
 #if NET5_0 && WINDOWS
-        private Window _window;
+        public Window _window;
 
 #else
-        private Windows.UI.Xaml.Window _window;
+        public Windows.UI.Xaml.Window _window;
 #endif
 
         /// <summary>

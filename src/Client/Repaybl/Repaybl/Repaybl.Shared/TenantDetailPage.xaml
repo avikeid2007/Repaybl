@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:entities="using:Uno.Material.Entities"
     xmlns:extensions="using:Uno.Material.Extensions"
     xmlns:local="using:Repaybl"
     xmlns:material="using:Uno.Material.Controls"
@@ -14,9 +15,9 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
+
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -24,16 +25,21 @@
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <TextBlock Style="{StaticResource MaterialHeadline4}" Text="Add/Edit Tenant" />
-            <!--<Button
+            <Button
                 Grid.Column="1"
-                Command="{x:Bind VM.SavePropertyCommand}"
-                Style="{StaticResource MaterialFabStyle}">
+                Command="{x:Bind VM.AddRoomCommand}"
+                Content="Add"
+                Style="{StaticResource MaterialContainedButtonStyle}"
+                Visibility="{x:Bind VM.IsRoomVisible, Mode=OneWay}">
                 <extensions:ControlExtensions.Icon>
-                    <SymbolIcon Symbol="Save" />
+                    <SymbolIcon Symbol="Add" />
                 </extensions:ControlExtensions.Icon>
-            </Button>-->
+            </Button>
         </Grid>
-        <Grid Grid.Row="1" Margin="16">
+        <Grid
+            Grid.Row="1"
+            Margin="16"
+            Visibility="{x:Bind VM.IsTenantVisible, Mode=OneWay}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
@@ -246,8 +252,297 @@
                     Style="{StaticResource MaterialContainedButtonStyle}" />
             </StackPanel>
         </Grid>
-        <material:Divider Grid.Row="2" Style="{StaticResource MaterialDividerStyle}" />
-        <Pivot
+        <GridView
+            Grid.Row="1"
+            Margin="16"
+            HorizontalAlignment="Stretch"
+            ItemsSource="{x:Bind VM.SelectedTenant.Rooms, Mode=OneWay}"
+            Visibility="{x:Bind VM.IsRoomVisible, Mode=OneWay}">
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </GridView.ItemContainerStyle>
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="models:Room">
+                    <Grid
+                        Width="480"
+                        Height="140"
+                        Padding="4,16"
+                        HorizontalAlignment="Left"
+                        BorderBrush="#ccc"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            Grid.RowSpan="4"
+                            Width="100"
+                            HorizontalAlignment="Left"
+                            Source="ms-appx:///Assets/NoBuilding.png" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="4,4,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            <Run Text="Name: " />
+                            <Run Text="{x:Bind RoomNo}" />
+                        </TextBlock>
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="4,4,0,0"
+                            Foreground="#666"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            <Run Text="Floor: " />
+                            <Run Text="{x:Bind RoomFloorNo}" />
+                        </TextBlock>
+                        <!--<TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="4,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="Tenant Name :" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="4,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}">
+
+                            <Run Text="{x:Bind Address}" />
+                            <Run Text="{x:Bind City}" />
+                            <Run Text="{x:Bind State}" />
+                            <Run Text="{x:Bind Country}" />
+                            <Run Text="{x:Bind Zip}" />
+
+                        </TextBlock>-->
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+        <GridView
+            Grid.Row="1"
+            Margin="16"
+            HorizontalAlignment="Stretch"
+            ItemsSource="{x:Bind VM.SelectedTenant.TenantServices, Mode=OneWay}"
+            Visibility="{x:Bind VM.IsServiceVisible, Mode=OneWay}">
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </GridView.ItemContainerStyle>
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="models:TenantService">
+                    <Grid
+                        Width="480"
+                        Height="140"
+                        Padding="4,16"
+                        HorizontalAlignment="Left"
+                        BorderBrush="#ccc"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            Grid.RowSpan="4"
+                            Width="100"
+                            HorizontalAlignment="Left"
+                            Source="ms-appx:///Assets/NoBuilding.png" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="4,4,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            <Run Text="Service Name: " />
+                            <Run Text="{x:Bind Id}" />
+                        </TextBlock>
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="4,4,0,0"
+                            Foreground="#666"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            <Run Text="Floor: " />
+                            <Run Text="{x:Bind Service.Name}" />
+                        </TextBlock>
+                        <!--<TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="4,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="Tenant Name :" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="4,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}">
+
+                            <Run Text="{x:Bind Address}" />
+                            <Run Text="{x:Bind City}" />
+                            <Run Text="{x:Bind State}" />
+                            <Run Text="{x:Bind Country}" />
+                            <Run Text="{x:Bind Zip}" />
+
+                        </TextBlock>-->
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+        <GridView
+            Grid.Row="1"
+            Margin="16"
+            HorizontalAlignment="Stretch"
+            ItemsSource="{x:Bind VM.SelectedTenant.FamilyDetails, Mode=OneWay}"
+            Visibility="{x:Bind VM.IsFamilyVisible, Mode=OneWay}">
+            <GridView.ItemContainerStyle>
+                <Style TargetType="GridViewItem">
+                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </GridView.ItemContainerStyle>
+            <GridView.ItemTemplate>
+                <DataTemplate x:DataType="models:FamilyDetail">
+                    <Grid
+                        Width="480"
+                        Height="140"
+                        Padding="4,16"
+                        HorizontalAlignment="Left"
+                        BorderBrush="#ccc"
+                        BorderThickness="1"
+                        CornerRadius="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            Grid.RowSpan="4"
+                            Width="100"
+                            HorizontalAlignment="Left"
+                            Source="ms-appx:///Assets/NoBuilding.png" />
+                        <TextBlock
+                            Grid.Column="1"
+                            Margin="4,4,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            <Run Text="Service Name: " />
+                            <Run Text="{x:Bind FirstName}" />
+                        </TextBlock>
+                        <TextBlock
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="4,4,0,0"
+                            Foreground="#666"
+                            Style="{StaticResource BaseTextBlockStyle}">
+                            <Run Text="Floor: " />
+                            <Run Text="{x:Bind Gender}" />
+                        </TextBlock>
+                        <!--<TextBlock
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="4,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="Tenant Name :" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="4,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}">
+
+                            <Run Text="{x:Bind Address}" />
+                            <Run Text="{x:Bind City}" />
+                            <Run Text="{x:Bind State}" />
+                            <Run Text="{x:Bind Country}" />
+                            <Run Text="{x:Bind Zip}" />
+
+                        </TextBlock>-->
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+        <material:BottomNavigationBar Grid.Row="3">
+            <material:BottomNavigationBar.Items>
+                <material:BottomNavigationBarItem
+                    Command="{x:Bind VM.ViewCommand}"
+                    CommandParameter="1"
+                    Label="Tenant">
+                    <material:BottomNavigationBarItem.Icon>
+                        <SymbolIcon Symbol="Contact" />
+                    </material:BottomNavigationBarItem.Icon>
+                </material:BottomNavigationBarItem>
+                <material:BottomNavigationBarItem
+                    Command="{x:Bind VM.ViewCommand}"
+                    CommandParameter="2"
+                    IsEnabled="{x:Bind VM.IsExistUser, Mode=OneWay}"
+                    Label="Rooms">
+                    <material:BottomNavigationBarItem.Icon>
+                        <SymbolIcon Symbol="Directions" />
+                    </material:BottomNavigationBarItem.Icon>
+                </material:BottomNavigationBarItem>
+                <material:BottomNavigationBarItem
+                    Command="{x:Bind VM.ViewCommand}"
+                    CommandParameter="3"
+                    IsEnabled="{x:Bind VM.IsExistUser, Mode=OneWay}"
+                    Label="Services">
+                    <material:BottomNavigationBarItem.Icon>
+                        <SymbolIcon Symbol="Shuffle" />
+                    </material:BottomNavigationBarItem.Icon>
+                </material:BottomNavigationBarItem>
+                <material:BottomNavigationBarItem
+                    Command="{x:Bind VM.ViewCommand}"
+                    CommandParameter="4"
+                    IsEnabled="{x:Bind VM.IsExistUser, Mode=OneWay}"
+                    Label="Family">
+                    <material:BottomNavigationBarItem.Icon>
+                        <SymbolIcon Symbol="People" />
+                    </material:BottomNavigationBarItem.Icon>
+                </material:BottomNavigationBarItem>
+
+                <material:BottomNavigationBarItem
+                    Command="{x:Bind VM.ViewCommand}"
+                    CommandParameter="5"
+                    IsEnabled="{x:Bind VM.IsExistUser, Mode=OneWay}"
+                    Label="Documents">
+                    <material:BottomNavigationBarItem.Icon>
+                        <SymbolIcon Symbol="Document" />
+                    </material:BottomNavigationBarItem.Icon>
+                </material:BottomNavigationBarItem>
+                <material:BottomNavigationBarItem
+                    Command="{x:Bind VM.ViewCommand}"
+                    CommandParameter="6"
+                    IsEnabled="{x:Bind VM.IsExistUser, Mode=OneWay}"
+                    Label="Notifications">
+                    <material:BottomNavigationBarItem.Icon>
+                        <SymbolIcon Symbol="Flag" />
+                    </material:BottomNavigationBarItem.Icon>
+                    <material:BottomNavigationBarItem.Badge>
+                        <entities:BottomNavigationBarBadge IsVisible="True" Text="12" />
+                    </material:BottomNavigationBarItem.Badge>
+                </material:BottomNavigationBarItem>
+            </material:BottomNavigationBar.Items>
+
+        </material:BottomNavigationBar>
+        <!--<Pivot
             Grid.Row="3"
             Margin="16,4"
             IsEnabled="{x:Bind VM.IsExistUser}">
@@ -311,11 +606,13 @@
                                     Grid.Column="1"
                                     Margin="4,8,0,0"
                                     Style="{StaticResource BaseTextBlockStyle}">
-                                    <!--<Run Text="{x:Bind Address}" />
+        -->
+        <!--<Run Text="{x:Bind Address}" />
                             <Run Text="{x:Bind City}" />
                             <Run Text="{x:Bind State}" />
                             <Run Text="{x:Bind Country}" />
                             <Run Text="{x:Bind Zip}" />-->
+        <!--
                                 </TextBlock>
                             </Grid>
                         </DataTemplate>
@@ -386,11 +683,13 @@
                                     Grid.Column="1"
                                     Margin="4,8,0,0"
                                     Style="{StaticResource BaseTextBlockStyle}">
-                                    <!--<Run Text="{x:Bind Address}" />
+        -->
+        <!--<Run Text="{x:Bind Address}" />
                             <Run Text="{x:Bind City}" />
                             <Run Text="{x:Bind State}" />
                             <Run Text="{x:Bind Country}" />
                             <Run Text="{x:Bind Zip}" />-->
+        <!--
                                 </TextBlock>
                             </Grid>
                         </DataTemplate>
@@ -461,11 +760,13 @@
                                     Grid.Column="1"
                                     Margin="4,8,0,0"
                                     Style="{StaticResource BaseTextBlockStyle}">
-                                    <!--<Run Text="{x:Bind Address}" />
+        -->
+        <!--<Run Text="{x:Bind Address}" />
                             <Run Text="{x:Bind City}" />
                             <Run Text="{x:Bind State}" />
                             <Run Text="{x:Bind Country}" />
                             <Run Text="{x:Bind Zip}" />-->
+        <!--
                                 </TextBlock>
                             </Grid>
                         </DataTemplate>
@@ -488,7 +789,7 @@
                     </StackPanel>
                 </Button>
             </Pivot.RightHeader>
-        </Pivot>
+        </Pivot>-->
 
     </Grid>
 </Page>

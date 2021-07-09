@@ -11,7 +11,8 @@ namespace Repaybl.Constants
         Dashboard,
         Properties,
         Tenants,
-        Profile
+        Profile,
+        Logout
     }
     public static class ServiceExtensions
     {

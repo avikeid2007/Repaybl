@@ -21,6 +21,7 @@ namespace Repaybl
             // Request an instance of the ViewModel and set it to the DataContext
             VM = (HomeViewModel)ActivatorUtilities.GetServiceOrCreateInstance(container, typeof(HomeViewModel));
             DataContext = VM;
+            // VM.GetMainFrame(this.Frame);
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
             SystemNavigationManager.GetForCurrentView().BackRequested += (s, es) =>
             {
