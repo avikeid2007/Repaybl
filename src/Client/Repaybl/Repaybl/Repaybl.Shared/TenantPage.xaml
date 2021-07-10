@@ -74,9 +74,9 @@
             <GridView.ItemTemplate>
                 <DataTemplate x:DataType="models:Tenant">
                     <Grid
-                        Width="260"
-                        Height="160"
-                        Padding="16,16"
+                        Width="480"
+                        Height="140"
+                        Padding="4,16"
                         HorizontalAlignment="Left"
                         BorderBrush="#ccc"
                         BorderThickness="1"

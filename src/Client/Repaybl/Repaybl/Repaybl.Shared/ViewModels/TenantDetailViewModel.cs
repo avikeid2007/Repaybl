@@ -27,6 +27,41 @@ namespace Repaybl.ViewModels
         public ICommand SaveTenantCommand => new AsyncCommand(OnSaveTenantCommandAsync);
         public ICommand ResetTenantCommand => new AsyncCommand(OnResetTenantCommandAsync);
         public ICommand AddRoomCommand => new AsyncCommand(OnAddRoomCommandAsync);
+        public ICommand ViewCommand => new DelegateCommand<string>(OnViewCommand);
+
+        private void OnViewCommand(string obj)
+        {
+            switch (obj)
+            {
+                case "1":
+                    IsTenantVisible = true;
+                    IsRoomVisible = false;
+                    IsServiceVisible = false;
+                    IsFamilyVisible = false;
+                    break;
+                case "2":
+                    IsTenantVisible = false;
+                    IsRoomVisible = true;
+                    IsServiceVisible = false;
+                    IsFamilyVisible = false;
+                    break;
+                case "3":
+                    IsTenantVisible = false;
+                    IsRoomVisible = false;
+                    IsServiceVisible = true;
+                    IsFamilyVisible = false;
+                    break;
+                case "4":
+                    IsTenantVisible = false;
+                    IsRoomVisible = false;
+                    IsServiceVisible = false;
+                    IsFamilyVisible = true;
+                    break;
+                default:
+                    break;
+            }
+            //throw new NotImplementedException();
+        }
 
         private async Task OnAddRoomCommandAsync()
         {
@@ -40,6 +75,7 @@ namespace Repaybl.ViewModels
             _popupService = popupService;
             _propertyClient = propertyClient;
             SelectedTenant = new Tenant() { UserId = Globals.CurrentUserId, Id = Guid.NewGuid(), Doj = DateTimeOffset.Now };
+            IsTenantVisible = true;
             _ = FillDropdownAsync();
         }
         public void SetParameter(Tenant property)
@@ -94,6 +130,56 @@ namespace Repaybl.ViewModels
         private List<string> _iDTypes;
         private string _selectedId;
         private bool _isExistUser;
+        private bool _isTenantVisible;
+        private bool _isRoomVisible;
+        private bool _isFamilyVisible;
+        private bool _isDocumentVisible;
+        private bool _isServiceVisible;
+        public bool IsServiceVisible
+        {
+            get { return _isServiceVisible; }
+            set
+            {
+                _isServiceVisible = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool IsTenantVisible
+        {
+            get { return _isTenantVisible; }
+            set
+            {
+                _isTenantVisible = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool IsRoomVisible
+        {
+            get { return _isRoomVisible; }
+            set
+            {
+                _isRoomVisible = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool IsFamilyVisible
+        {
+            get { return _isFamilyVisible; }
+            set
+            {
+                _isFamilyVisible = value;
+                OnPropertyChanged();
+            }
+        }
+        public bool IsDocumentVisible
+        {
+            get { return _isDocumentVisible; }
+            set
+            {
+                _isDocumentVisible = value;
+                OnPropertyChanged();
+            }
+        }
         public bool IsExistUser
         {
             get { return _isExistUser; }

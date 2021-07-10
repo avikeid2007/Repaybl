@@ -60,15 +60,18 @@
                     <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE716;" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-
-        </NavigationView.MenuItems>
-        <NavigationView.PaneFooter>
             <NavigationViewItem Content="{x:Bind token:PageTokens.Profile}" Tag="TN">
                 <NavigationViewItem.Icon>
                     <BitmapIcon ShowAsMonochrome="False" UriSource="ms-appx:///Assets/NoPicture.png" />
                 </NavigationViewItem.Icon>
             </NavigationViewItem>
-        </NavigationView.PaneFooter>
+            <NavigationViewItem Content="{x:Bind token:PageTokens.Logout}" Tag="TN" >
+                <NavigationViewItem.Icon>
+                    <FontIcon FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE716;" />
+                </NavigationViewItem.Icon>
+            </NavigationViewItem>
+        </NavigationView.MenuItems>
+
         <!--  NavigationView Items  -->
         <Frame x:Name="ContentFrame">
             <Interactivity:Interaction.Behaviors>
