@@ -28,6 +28,7 @@ namespace Repaybl
                 if (ContentFrame.CanGoBack)
                 {
                     ContentFrame.GoBack();
+                    es.Handled = true;
                 }
                 // Handle the Back pressed
             };

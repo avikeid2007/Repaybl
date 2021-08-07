@@ -28,6 +28,7 @@ namespace Repaybl
             VM._contentFrame = this.Frame;
         }
 
+
         internal PropertiesViewModel VM { get; }
     }
 }

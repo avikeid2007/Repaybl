@@ -30,7 +30,7 @@
                 Command="{x:Bind VM.AddRoomCommand}"
                 Content="Add"
                 Style="{StaticResource MaterialContainedButtonStyle}"
-                Visibility="{x:Bind VM.IsRoomVisible, Mode=OneWay}">
+                Visibility="{x:Bind VM.AddButtonVisible, Mode=OneWay}">
                 <extensions:ControlExtensions.Icon>
                     <SymbolIcon Symbol="Add" />
                 </extensions:ControlExtensions.Icon>
@@ -379,7 +379,7 @@
                             Foreground="#666"
                             Style="{StaticResource BaseTextBlockStyle}">
                             <Run Text="Floor: " />
-                            <Run Text="{x:Bind Service.Name}" />
+                            <!--<Run Text="{x:Bind Service.Name}" />-->
                         </TextBlock>
                         <!--<TextBlock
                             Grid.Row="2"

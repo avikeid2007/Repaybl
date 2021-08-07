@@ -15,5 +15,6 @@ namespace Repaybl.Services.Abstractions
     interface IPopupService
     {
         Task AddTenantRoomDialogAsync(Guid tenantId);
+        Task AddTenantServiceDialogAsync(Tenant tenant);
     }
 }

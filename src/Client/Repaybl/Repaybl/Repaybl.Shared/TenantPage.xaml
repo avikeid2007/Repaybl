@@ -88,18 +88,17 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="52" />
+                            <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <PersonPicture
-                            Grid.RowSpan="2"
-                            Width="52"
+                        <Image
+                            Grid.RowSpan="4"
+                            Width="100"
                             HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            DisplayName="{x:Bind FirstName}" />
+                            Source="ms-appx:///Assets/NoBuilding.png" />
                         <TextBlock
                             Grid.Column="1"
-                            Margin="16,4,0,0"
+                            Margin="4,4,0,0"
                             Style="{StaticResource BaseTextBlockStyle}">
                             <Run Text="{x:Bind FirstName}" />
                             <Run Text="{x:Bind LastName}" />
@@ -107,25 +106,23 @@
                         <TextBlock
                             Grid.Row="1"
                             Grid.Column="1"
-                            Margin="16,4,0,0"
+                            Margin="4,4,0,0"
                             Foreground="#666"
                             Style="{StaticResource BaseTextBlockStyle}">
-                            <Run Text="No of Occupants:" />
-                            <Run Text="{x:Bind FamilyMamberCount}" />
+                            <Run Text="Rooms:" />
+                            <Run Text="{x:Bind Rooms.Count}" />
                         </TextBlock>
-                        <!--<TextBlock
-                            Grid.Row="2"
-                            Grid.Column="0"
-                            Margin="0,8,0,0"
-                            Style="{StaticResource BaseTextBlockStyle}"
-                            Text="Address :" />-->
                         <TextBlock
                             Grid.Row="2"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2"
-                            Margin="0,8,0,0"
+                            Grid.Column="1"
+                            Margin="4,8,0,0"
+                            Style="{StaticResource BaseTextBlockStyle}"
+                            Text="Address :" />
+                        <TextBlock
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="4,8,0,0"
                             Style="{StaticResource BaseTextBlockStyle}">
-                            <Run Text="Address :" />
                             <Run Text="{x:Bind Address}" />
                             <Run Text="{x:Bind City}" />
                             <Run Text="{x:Bind State}" />

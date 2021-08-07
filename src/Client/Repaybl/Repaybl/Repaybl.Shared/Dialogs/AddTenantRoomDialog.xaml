@@ -6,7 +6,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:Repaybl.Swag"
     Title="Add Room for Tenant"
-    Width="400"
     Height="400"
     PrimaryButtonCommand="{x:Bind VM.AddRoomCommand}"
     PrimaryButtonText="Add Room"
@@ -18,6 +17,7 @@
             <RowDefinition MinHeight="200" />
         </Grid.RowDefinitions>
         <ComboBox
+            x:Name="propCombo"
             Grid.Row="0"
             HorizontalAlignment="Stretch"
             BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}"
@@ -28,65 +28,46 @@
             ItemsSource="{x:Bind VM.Properties, Mode=OneWay}"
             PlaceholderText="Select"
             SelectedItem="{Binding SelectedProperty, Mode=TwoWay}" />
-        <ListView
-            Grid.Row="4"
-            Margin="16,16"
+        <!--<ComboBox
+            Grid.Row="1"
             HorizontalAlignment="Stretch"
-            IsMultiSelectCheckBoxEnabled="True"
+            BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}"
+            BorderThickness="0,0,0,1"
+            CornerRadius="4"
+            DisplayMemberPath="RoomNo"
+            Header="Room"
+            ItemsSource="{x:Bind VM.Rooms, Mode=OneWay}"
+            PlaceholderText="Select"
+            SelectedItem="{Binding SelectedRoom, Mode=TwoWay}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+                        <TextBlock Text="{Binding RoomNo}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>-->
+        <ListView
+            Grid.Row="1"
+            MaxWidth="300"
             ItemsSource="{x:Bind VM.Rooms, Mode=OneWay}"
             SelectedItem="{Binding SelectedRoom, Mode=TwoWay}"
             SelectionMode="None">
-            <ListView.ItemContainerStyle>
-                <Style TargetType="GridViewItem">
-                    <Setter Property="Padding" Value="0" />
-                    <Setter Property="Margin" Value="0" />
-                    <Setter Property="HorizontalAlignment" Value="Stretch" />
-                </Style>
-            </ListView.ItemContainerStyle>
+
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:Room">
-                    <ToggleButton
-                        Width="240"
-                        Height="80"
-                        Margin="0,0,0,4"
-                        Padding="0"
+                    <!--<ToggleButton
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
-                        IsChecked="{x:Bind IsSelected, Mode=TwoWay}">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Image
-                                Grid.RowSpan="4"
-                                Width="48"
-                                HorizontalAlignment="Left"
-                                Source="ms-appx:///Assets/NoBuilding.png" />
-                            <TextBlock
-                                Grid.Column="1"
-                                Margin="4,4,0,0"
-                                Style="{StaticResource BaseTextBlockStyle}">
-                                <Run Text="Name/No: " />
-                                <Run Text="{x:Bind RoomNo}" />
-                            </TextBlock>
-                            <TextBlock
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Margin="4,4,0,0"
-                                Style="{StaticResource BaseTextBlockStyle}">
-                                <Run Text="Floor No:" />
-                                <Run Text="{x:Bind RoomFloorNo}" />
-                            </TextBlock>
+                        Content="{x:Bind RoomNo}"
+                        IsChecked="{x:Bind IsSelected, Mode=TwoWay}" />-->
 
-                        </Grid>
-                    </ToggleButton>
+                    <CheckBox
+                        HorizontalAlignment="Left"
+                        Content="{Binding RoomNo}"
+                        IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
