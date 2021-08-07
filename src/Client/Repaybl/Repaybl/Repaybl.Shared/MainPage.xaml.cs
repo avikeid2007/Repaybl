@@ -27,6 +27,15 @@ namespace Repaybl
         private void PropertiesPage_Loaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
             VM._contentFrame = this.Frame;
+            //SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = AppViewBackButtonVisibility.Visible;
+            //SystemNavigationManager.GetForCurrentView().BackRequested += (s, es) =>
+            //{
+            //    if (this.Frame.CanGoBack)
+            //    {
+            //        this.Frame.GoBack();
+            //    }
+            //    // Handle the Back pressed
+            //};
         }
     }
 }

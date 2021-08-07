@@ -38,24 +38,28 @@ namespace Repaybl.ViewModels
                     IsRoomVisible = false;
                     IsServiceVisible = false;
                     IsFamilyVisible = false;
+                    AddButtonVisible = false;
                     break;
                 case "2":
                     IsTenantVisible = false;
                     IsRoomVisible = true;
                     IsServiceVisible = false;
                     IsFamilyVisible = false;
+                    AddButtonVisible = true;
                     break;
                 case "3":
                     IsTenantVisible = false;
                     IsRoomVisible = false;
                     IsServiceVisible = true;
                     IsFamilyVisible = false;
+                    AddButtonVisible = true;
                     break;
                 case "4":
                     IsTenantVisible = false;
                     IsRoomVisible = false;
                     IsServiceVisible = false;
                     IsFamilyVisible = true;
+                    AddButtonVisible = true;
                     break;
                 default:
                     break;
@@ -65,7 +69,10 @@ namespace Repaybl.ViewModels
 
         private async Task OnAddRoomCommandAsync()
         {
-            await _popupService.AddTenantRoomDialogAsync(SelectedTenant.Id);
+            if (IsRoomVisible)
+                await _popupService.AddTenantRoomDialogAsync(SelectedTenant.Id);
+            if (IsServiceVisible)
+                await _popupService.AddTenantServiceDialogAsync(SelectedTenant);
         }
 
         public TenantDetailViewModel(ITenantClient tenantClient, IPropertyClient propertyClient, IDropDownService dropDownService, IPopupService popupService)
@@ -84,6 +91,16 @@ namespace Repaybl.ViewModels
             {
                 SelectedTenant = property;
                 IsExistUser = true;
+            }
+        }
+        private bool _addButtonVisible;
+        public bool AddButtonVisible
+        {
+            get { return _addButtonVisible; }
+            set
+            {
+                _addButtonVisible = value;
+                OnPropertyChanged();
             }
         }
         private async Task FillStatesDropdownAsync(Country value)
@@ -234,7 +251,7 @@ namespace Repaybl.ViewModels
                 if (_selectedState != value)
                 {
                     _selectedState = value;
-                    SelectedTenant.State = value.Name;
+                    SelectedTenant.State = value?.Name;
                     OnPropertyChanged();
                 }
             }

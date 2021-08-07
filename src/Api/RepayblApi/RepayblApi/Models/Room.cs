@@ -45,5 +45,7 @@ namespace RepayblApi.Models
         public virtual ICollection<RentTransaction> RentTransactions { get; set; }
         [InverseProperty(nameof(PropertyMedia.Room))]
         public virtual ICollection<PropertyMedia> PropertyMedias { get; set; }
+        [InverseProperty(nameof(TenantService.Room))]
+        public virtual ICollection<TenantService> TenantServices { get; set; }
     }
 }

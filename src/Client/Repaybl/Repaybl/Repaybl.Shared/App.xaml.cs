@@ -25,10 +25,10 @@ namespace Repaybl
     public sealed partial class App : Application
     {
 #if NET5_0 && WINDOWS
-        public Window _window;
+        private Window _window;
 
 #else
-        public Windows.UI.Xaml.Window _window;
+        private Windows.UI.Xaml.Window _window;
 #endif
 
         /// <summary>
@@ -37,6 +37,9 @@ namespace Repaybl
         /// </summary>
         public App()
         {
+#if __IOS__ || __ANDROID__
+    Uno.UI.FeatureConfiguration.Style.ConfigureNativeFrameNavigation();
+#endif
             InitializeLogging();
 
             this.InitializeComponent();
@@ -93,7 +96,9 @@ namespace Repaybl
 #else
             _window = Windows.UI.Xaml.Window.Current;
 #endif
-
+#if __ANDROID__
+            Uno.UI.FeatureConfiguration.Popup.UseNativePopup = false;
+#endif
             var rootFrame = _window.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -118,7 +123,6 @@ namespace Repaybl
             if (e.PrelaunchActivated == false)
 #endif
             {
-                //ConfigureNavigation();
                 if (rootFrame.Content == null)
                 {
                     // When the navigation stack isn't restored navigate to the first page,
@@ -133,39 +137,7 @@ namespace Repaybl
                 _window.Activate();
             }
         }
-        //        private void ConfigureNavigation()
-        //        {
-        //            var frame = (Frame)Windows.UI.Xaml.Window.Current.Content;
-        //            var manager = Windows.UI.Core.SystemNavigationManager.GetForCurrentView();
 
-
-        //#if WINDOWS_UWP || __WASM__
-        //            // Toggle the visibility of back button based on if the frame can navigate back.
-        //            // Setting it to visible has the follow effect on the platform:
-        //            // - uwp: add a `<-` back button on the title bar
-        //            // - wasm: add a dummy entry in the browser back stack
-        //            frame.Navigated += (s, e) => manager.AppViewBackButtonVisibility = frame.CanGoBack
-        //                ? Windows.UI.Core.AppViewBackButtonVisibility.Visible
-        //                : Windows.UI.Core.AppViewBackButtonVisibility.Collapsed;
-        //#endif
-
-        //#if WINDOWS_UWP || __ANDROID__ || __WASM__
-        //            // On some platforms, the back navigation request needs to be hooked up to the back navigation of the Frame.
-        //            // These requests can come from:
-        //            // - uwp: title bar back button
-        //            // - droid: CommandBar back button, os back button/gesture
-        //            // - wasm: browser back button
-        //            manager.BackRequested += (s, e) =>
-        //            {
-        //                if (frame.CanGoBack)
-        //                {
-        //                    frame.GoBack();
-
-        //                    e.Handled = true;
-        //                }
-        //            };
-        //#endif
-        //        }
         private bool IsLoginNeeded()
         {
             try

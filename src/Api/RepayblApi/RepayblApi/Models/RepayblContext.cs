@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+
+using Microsoft.EntityFrameworkCore;
 
 #nullable disable
 
@@ -191,7 +193,55 @@ namespace RepayblApi.Models
                 entity.HasIndex(x => x.Email).IsUnique();
                 entity.HasIndex(x => x.Phone).IsUnique();
             });
-
+            modelBuilder.Entity<Service>().HasData(new Service
+            {
+                Id = Guid.NewGuid(),
+                Created = DateTimeOffset.Now,
+                CreatedBy = "Admin",
+                Name = "Rent"
+            }, new Service
+            {
+                Id = Guid.NewGuid(),
+                Created = DateTimeOffset.Now,
+                CreatedBy = "Admin",
+                Name = "Electricity"
+            }, new Service
+            {
+                Id = Guid.NewGuid(),
+                Created = DateTimeOffset.Now,
+                CreatedBy = "Admin",
+                Name = "Water"
+            }, new Service
+            {
+                Id = Guid.NewGuid(),
+                Created = DateTimeOffset.Now,
+                CreatedBy = "Admin",
+                Name = "Cable"
+            }, new Service
+            {
+                Id = Guid.NewGuid(),
+                Created = DateTimeOffset.Now,
+                CreatedBy = "Admin",
+                Name = "Internet"
+            }, new Service
+            {
+                Id = Guid.NewGuid(),
+                Created = DateTimeOffset.Now,
+                CreatedBy = "Admin",
+                Name = "Gas"
+            }, new Service
+            {
+                Id = Guid.NewGuid(),
+                Created = DateTimeOffset.Now,
+                CreatedBy = "Admin",
+                Name = "Trash"
+            }, new Service
+            {
+                Id = Guid.NewGuid(),
+                Created = DateTimeOffset.Now,
+                CreatedBy = "Admin",
+                Name = "Miscellaneous"
+            });
             OnModelCreatingPartial(modelBuilder);
         }
 

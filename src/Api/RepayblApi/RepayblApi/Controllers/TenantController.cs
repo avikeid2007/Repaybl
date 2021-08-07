@@ -24,7 +24,11 @@ namespace RepayblApi.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<DTOs.Tenant>> GetMany(Guid? userID = null, string name = null, bool isIncludeServices = false, bool isIncludeRooms = false, bool isIncludeFamily = false)
         {
-            IQueryable<Tenant> query = Context.Tenants.Include(x => x.TenantServices).Include(x => x.Rooms);
+            IQueryable<Models.Tenant> query = Context.Tenants
+                .Include(x => x.TenantServices)
+                .Include(x => x.TenantDocuments)
+                .Include(x => x.TenantOutstandings)
+                .Include(x => x.Rooms);
             if (userID != null)
             {
                 query = query.Where(x => x.UserId == userID);
@@ -59,7 +63,7 @@ namespace RepayblApi.Controllers
                     {
                         if (dbobj == null)
                         {
-                            dbobj = ConvertModels<Tenant, DTOs.Tenant>(tenant);
+                            dbobj = ConvertModels<Models.Tenant, DTOs.Tenant>(tenant);
                             MapCreated(dbobj);
                             await Context.Tenants.AddAsync(dbobj);
                             await Context.SaveChangesAsync();
@@ -126,6 +130,34 @@ namespace RepayblApi.Controllers
                         transaction.Rollback();
                     }
                 }
+            }
+            return BadRequest();
+        }
+        [HttpPost("TenantServices")]
+        public async Task<ActionResult> SaveTenantServicesAsync(IEnumerable<DTOs.TenantService> tenantServices)
+        {
+            if (tenantServices?.Count() > 0)
+            {
+                foreach (var service in tenantServices)
+                {
+                    var dbobj = await Context.TenantServices.SingleOrDefaultAsync(x => x.Id == service.Id);
+                    if (dbobj != null)
+                    {
+                        MapModels(service, dbobj);
+                        MapModified(dbobj);
+                        Context.TenantServices.Update(dbobj);
+
+                    }
+                    else
+                    {
+                        dbobj = ConvertModels<Models.TenantService, DTOs.TenantService>(service);
+                        MapCreated(dbobj);
+                        await Context.TenantServices.AddAsync(dbobj);
+
+                    }
+                }
+                await Context.SaveChangesAsync();
+                return Ok();
             }
             return BadRequest();
         }

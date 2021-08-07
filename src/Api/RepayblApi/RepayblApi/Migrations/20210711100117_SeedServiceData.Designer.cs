@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RepayblApi.Models;
 
 namespace RepayblApi.Migrations
 {
     [DbContext(typeof(RepayblContext))]
-    partial class RepayblContextModelSnapshot : ModelSnapshot
+    [Migration("20210711100117_SeedServiceData")]
+    partial class SeedServiceData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -390,64 +392,64 @@ namespace RepayblApi.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6aec5377-a350-4de1-8dbe-fe6ae7f9b4e6"),
-                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 21, 17, 38, 716, DateTimeKind.Unspecified).AddTicks(4769), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("2d7c093e-09bf-418d-8edb-14d61f96c850"),
+                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 15, 31, 16, 940, DateTimeKind.Unspecified).AddTicks(7677), new TimeSpan(0, 5, 30, 0, 0)),
                             CreatedBy = "Admin",
                             IsDeleted = false,
                             Name = "Rent"
                         },
                         new
                         {
-                            Id = new Guid("558cefef-ba31-4c31-ad3b-fc8df99a586a"),
-                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 21, 17, 38, 721, DateTimeKind.Unspecified).AddTicks(3235), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("e61172c4-4c15-477e-8853-e942bac90e90"),
+                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 15, 31, 16, 946, DateTimeKind.Unspecified).AddTicks(2765), new TimeSpan(0, 5, 30, 0, 0)),
                             CreatedBy = "Admin",
                             IsDeleted = false,
                             Name = "Electricity"
                         },
                         new
                         {
-                            Id = new Guid("264ba007-5717-4c66-8e9f-b1a151a52b0c"),
-                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 21, 17, 38, 721, DateTimeKind.Unspecified).AddTicks(3285), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("922022ba-47fd-4000-ae31-8cfd9ffa1a8b"),
+                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 15, 31, 16, 946, DateTimeKind.Unspecified).AddTicks(2818), new TimeSpan(0, 5, 30, 0, 0)),
                             CreatedBy = "Admin",
                             IsDeleted = false,
                             Name = "Water"
                         },
                         new
                         {
-                            Id = new Guid("ea728387-fbac-45d0-9cc6-27e5db6cf9ea"),
-                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 21, 17, 38, 721, DateTimeKind.Unspecified).AddTicks(3289), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("7d9577a3-72bf-45e5-a219-a9a48c298a12"),
+                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 15, 31, 16, 946, DateTimeKind.Unspecified).AddTicks(2823), new TimeSpan(0, 5, 30, 0, 0)),
                             CreatedBy = "Admin",
                             IsDeleted = false,
                             Name = "Cable"
                         },
                         new
                         {
-                            Id = new Guid("7f290c9a-71be-465b-a0c7-d7fd30b2b48f"),
-                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 21, 17, 38, 721, DateTimeKind.Unspecified).AddTicks(3293), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("db24aed2-6cfa-46ea-bbdc-f6bd5b641cef"),
+                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 15, 31, 16, 946, DateTimeKind.Unspecified).AddTicks(2826), new TimeSpan(0, 5, 30, 0, 0)),
                             CreatedBy = "Admin",
                             IsDeleted = false,
                             Name = "Internet"
                         },
                         new
                         {
-                            Id = new Guid("82456d79-f0f0-4837-b259-1a58a910a1ba"),
-                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 21, 17, 38, 721, DateTimeKind.Unspecified).AddTicks(3296), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("1917ab7d-e85d-4f58-989d-cb109531805a"),
+                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 15, 31, 16, 946, DateTimeKind.Unspecified).AddTicks(2847), new TimeSpan(0, 5, 30, 0, 0)),
                             CreatedBy = "Admin",
                             IsDeleted = false,
                             Name = "Gas"
                         },
                         new
                         {
-                            Id = new Guid("069ea96b-98de-4710-a247-5f104c5434a8"),
-                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 21, 17, 38, 721, DateTimeKind.Unspecified).AddTicks(3299), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("3acd3d8b-6e18-4516-a4b8-29e26eb633a6"),
+                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 15, 31, 16, 946, DateTimeKind.Unspecified).AddTicks(2850), new TimeSpan(0, 5, 30, 0, 0)),
                             CreatedBy = "Admin",
                             IsDeleted = false,
                             Name = "Trash"
                         },
                         new
                         {
-                            Id = new Guid("d621f6f8-734c-4a88-8308-82e3af75ebde"),
-                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 21, 17, 38, 721, DateTimeKind.Unspecified).AddTicks(3322), new TimeSpan(0, 5, 30, 0, 0)),
+                            Id = new Guid("3363d1b3-e8b5-4c99-8240-7c5262720d5b"),
+                            Created = new DateTimeOffset(new DateTime(2021, 7, 11, 15, 31, 16, 946, DateTimeKind.Unspecified).AddTicks(2853), new TimeSpan(0, 5, 30, 0, 0)),
                             CreatedBy = "Admin",
                             IsDeleted = false,
                             Name = "Miscellaneous"
@@ -683,9 +685,6 @@ namespace RepayblApi.Migrations
                     b.Property<decimal>("RatePerUnit")
                         .HasColumnType("numeric(8,2)");
 
-                    b.Property<Guid>("RoomId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("ServiceId")
                         .HasColumnType("uniqueidentifier");
 
@@ -693,8 +692,6 @@ namespace RepayblApi.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RoomId");
 
                     b.HasIndex("ServiceId");
 
@@ -901,12 +898,6 @@ namespace RepayblApi.Migrations
 
             modelBuilder.Entity("RepayblApi.Models.TenantService", b =>
                 {
-                    b.HasOne("RepayblApi.Models.Room", "Room")
-                        .WithMany("TenantServices")
-                        .HasForeignKey("RoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("RepayblApi.Models.Service", "Service")
                         .WithMany("TenantServices")
                         .HasForeignKey("ServiceId")
@@ -918,8 +909,6 @@ namespace RepayblApi.Migrations
                         .HasForeignKey("TenantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Room");
 
                     b.Navigation("Service");
 
@@ -938,8 +927,6 @@ namespace RepayblApi.Migrations
                     b.Navigation("PropertyMedias");
 
                     b.Navigation("RentTransactions");
-
-                    b.Navigation("TenantServices");
                 });
 
             modelBuilder.Entity("RepayblApi.Models.Service", b =>
